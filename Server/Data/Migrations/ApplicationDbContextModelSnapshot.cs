@@ -100,7 +100,7 @@ namespace grzejemy.Server.Data.Migrations
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasMaxLength(52580)
+                        .HasMaxLength(51530)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -151,7 +151,7 @@ namespace grzejemy.Server.Data.Migrations
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasMaxLength(52580);
+                        .HasMaxLength(51530);
 
                     b.Property<bool>("DataProtected")
                         .HasColumnType("bit");
@@ -192,7 +192,7 @@ namespace grzejemy.Server.Data.Migrations
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasMaxLength(52580)
+                        .HasMaxLength(51530)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
