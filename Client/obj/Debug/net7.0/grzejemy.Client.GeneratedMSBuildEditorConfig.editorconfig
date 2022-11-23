@@ -9,53 +9,53 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = grzejemy.Client
 build_property.RootNamespace = grzejemy.Client
-build_property.ProjectDir = C:\Users\Wojtek\source\repos\grzejemy\Client\
+build_property.ProjectDir = C:\Users\Paweł Skorupa\Desktop\semestr V\IO\grzejemy\Client\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Wojtek\source\repos\grzejemy\Client
+build_property.MSBuildProjectDirectory = C:\Users\Paweł Skorupa\Desktop\semestr V\IO\grzejemy\Client
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/App.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Pages/Authentication.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Pages/Authentication.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aGVudGljYXRpb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Pages/Counter.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Pages/FetchData.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Pages/Index.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Shared/LoginDisplay.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Shared/LoginDisplay.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luRGlzcGxheS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Shared/RedirectToLogin.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Shared/RedirectToLogin.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlZGlyZWN0VG9Mb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Shared/SurveyPrompt.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/_Imports.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Shared/MainLayout.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-qwchmwx7r0
 
-[C:/Users/Wojtek/source/repos/grzejemy/Client/Shared/NavMenu.razor]
+[C:/Users/Paweł Skorupa/Desktop/semestr V/IO/grzejemy/Client/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-4llpl17psx

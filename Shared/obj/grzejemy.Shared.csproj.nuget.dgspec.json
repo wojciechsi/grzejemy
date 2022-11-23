@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Wojtek\\source\\repos\\grzejemy\\Shared\\grzejemy.Shared.csproj": {}
+    "C:\\Users\\Paweł Skorupa\\Desktop\\semestr V\\IO\\grzejemy\\Shared\\grzejemy.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Wojtek\\source\\repos\\grzejemy\\Shared\\grzejemy.Shared.csproj": {
+    "C:\\Users\\Paweł Skorupa\\Desktop\\semestr V\\IO\\grzejemy\\Shared\\grzejemy.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Wojtek\\source\\repos\\grzejemy\\Shared\\grzejemy.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Paweł Skorupa\\Desktop\\semestr V\\IO\\grzejemy\\Shared\\grzejemy.Shared.csproj",
         "projectName": "grzejemy.Shared",
-        "projectPath": "C:\\Users\\Wojtek\\source\\repos\\grzejemy\\Shared\\grzejemy.Shared.csproj",
-        "packagesPath": "C:\\Users\\Wojtek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Wojtek\\source\\repos\\grzejemy\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\Paweł Skorupa\\Desktop\\semestr V\\IO\\grzejemy\\Shared\\grzejemy.Shared.csproj",
+        "packagesPath": "C:\\Users\\Paweł Skorupa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Paweł Skorupa\\Desktop\\semestr V\\IO\\grzejemy\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Wojtek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Paweł Skorupa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
