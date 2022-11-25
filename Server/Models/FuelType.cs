@@ -1,14 +1,21 @@
-﻿namespace grzejemy.Server.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace grzejemy.Server.Models
 {
     public class FuelType
     { 
-        public FuelType(string name) 
+        public FuelType()
         {
-            Name = name;
+            Name = string.Empty;
         }
 
-        private int Id { get; set; }
 
+        //[Key]
+        public int Id { get; private set; }
+
+        [Column]
         private string Name { get; set; }
     }
 }

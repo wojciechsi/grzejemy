@@ -13,5 +13,15 @@ namespace grzejemy.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        //public DbSet<Buyer> Buyers { get; set; }
+        //public DbSet<Admin> Admins { get; set; }
+        //public DbSet<Vendor> Vendors { get; set; }
+        //public DbSet<Comment> Comments { get; set; }
+        //public DbSet<Offer> Offers { get; set; }
+        //public DbSet<FuelType> FuelTypes { get; set; }
+        //public DbSet<SalesPoint> SalesPoints { get; set; }
+        //public DbSet<User> Users { get; set; }
+
     }
 }

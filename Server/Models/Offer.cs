@@ -4,7 +4,7 @@
     {
         public Offer() 
         {
-            FuelType = new FuelType("groszek");
+            //FuelType = new FuelType("groszek");
         }
         public int Id { get; set; }
 

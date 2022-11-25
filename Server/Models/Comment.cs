@@ -6,7 +6,7 @@
         { 
             Verified = false;
         }
-        private int Id { get; set; }
+        public int Id { get; set; }
 
         private float PaidPrice { get; set; }
 
