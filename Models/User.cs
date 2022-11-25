@@ -14,7 +14,7 @@ namespace grzejemy.Models
          * is realized by parent class
          */
 
-        private bool IsBanned {get; set;}
+        public bool IsBanned {get; set;}
 
     }
 }

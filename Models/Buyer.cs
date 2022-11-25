@@ -7,6 +7,6 @@
             favouriteFuel = new FuelType();
         }
 
-        private FuelType favouriteFuel { get; set; } 
+        public FuelType favouriteFuel { get; set; } 
     }
 }

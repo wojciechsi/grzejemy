@@ -1,26 +1,46 @@
 ﻿namespace grzejemy.Models
 {
-    struct Address
+    /*
+    public class Address
     {
-        public string Street;
-        public string Number;
-        public string PostCode;
-        public string City;
-    }
+        public string Street { get; set; }
+        public string Number { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
 
+        public Address()
+        {
+            Street = string.Empty;
+            Number = string.Empty;
+            PostCode = string.Empty;
+            City = string.Empty;
+        }
+
+
+    }
+    */
 
     public class SalesPoint
     {
+
         public SalesPoint()
         {
             Offers = new List<Offer>();
-            Address = new Address();
+            Name = string.Empty;
+            Street = string.Empty;
+            Number = string.Empty;
+            PostCode = string.Empty;
+            City = string.Empty;
+
         }
 
-        private int? Id { get; set; }
-        private string Name { get; set; }
-        private Address Address { get; set; }
-        private List<Offer> Offers { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Street { get; set; }
+        public string Number { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
+        public List<Offer> Offers { get; set; }
 
     }
 }

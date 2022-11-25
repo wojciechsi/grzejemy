@@ -8,16 +8,16 @@
         }
         public int Id { get; set; }
 
-        private float PaidPrice { get; set; }
+        public float PaidPrice { get; set; }
 
-        private string? Content { get; set; }
+        public string? Content { get; set; }
 
-        private bool Verified { get; set; }
+        public bool Verified { get; set; }
 
-        private int? ParagonId { get; set; }
+        public int? ParagonId { get; set; }
 
-        private int? QualityGrade { get; set; }
+        public int? QualityGrade { get; set; }
 
-        private string? QualityComment { get; set; }
+        public string? QualityComment { get; set; }
     }
 }

@@ -8,7 +8,7 @@
             DisplayName = string.Empty;
         }
 
-        private string DisplayName { get; set; }
-        private List<SalesPoint> salesPoints { get; set; }
+        public string DisplayName { get; set; }
+        public List<SalesPoint> salesPoints { get; set; }
     }
 }

@@ -11,11 +11,10 @@ namespace grzejemy.Models
             Name = string.Empty;
         }
 
+        public int Id { get; set; }
 
-        //[Key]
-        public int Id { get; private set; }
+        public string Name { get; set; }
 
-        [Column]
-        private string Name { get; set; }
+        
     }
 }
