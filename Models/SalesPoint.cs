@@ -26,6 +26,7 @@
         public SalesPoint()
         {
             Offers = new List<Offer>();
+            Vendor = new User();
             Name = string.Empty;
             Street = string.Empty;
             Number = string.Empty;
@@ -41,6 +42,7 @@
         public string PostCode { get; set; }
         public string City { get; set; }
         public List<Offer> Offers { get; set; }
+        public User Vendor { get; set; }
 
     }
 }
