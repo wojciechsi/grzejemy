@@ -1,10 +1,10 @@
 ﻿body {
-    background-image: linear-gradient(to left, #edba82, #f08107);
+    background-color: #f7ece1;
 }
 
 .searchBox {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%,50%);
     background: #4d2108;
@@ -19,9 +19,31 @@
     }
 
     .searchBox:hover > .searchButton {
-        background: white;
+        background: #f7ece1;
         color: #2f3640;
     }
+
+.brandname {
+    display: flex;
+    position: absolute;
+    top: 3%;
+    left: 43%;
+}
+
+img {
+    width: 12%;
+    height: 100%;
+    left: 60%;
+}
+
+h1 {
+    font-family: 'Comic Sans MS';
+    font-size: 48px;
+    color: #4d2108;
+    position: absolute;
+    top: 35%;
+    left: 15%;
+}
 
 .searchButton {
     color: white;
@@ -31,7 +53,7 @@
     border-radius: 50%;
     background: #4d2108;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: 0.4s;
@@ -43,7 +65,7 @@
     outline: none;
     float: left;
     padding: 0;
-    color: white;
+    color: #ffdfbd;
     font-size: 16px;
     transition: 0.4s;
     line-height: 40px;
