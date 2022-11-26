@@ -1,10 +1,11 @@
 ﻿using grzejemy.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace grzejemy.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -15,6 +16,5 @@ namespace grzejemy.Data
         public DbSet<SalesPoint> SalesPoints { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Comment> Comment { get; set; }
-        //public DbSet<User> Users { get; set; }
     }
 }

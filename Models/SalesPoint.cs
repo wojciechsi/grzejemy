@@ -1,4 +1,5 @@
-﻿namespace grzejemy.Models
+﻿using Microsoft.AspNetCore.Identity;
+namespace grzejemy.Models
 {
     /*
     public class Address
@@ -26,7 +27,7 @@
         public SalesPoint()
         {
             Offers = new List<Offer>();
-            Vendor = new User();
+            Vendor = new IdentityUser();
             Name = string.Empty;
             Street = string.Empty;
             Number = string.Empty;
@@ -42,7 +43,7 @@
         public string PostCode { get; set; }
         public string City { get; set; }
         public List<Offer> Offers { get; set; }
-        public User Vendor { get; set; }
+        public IdentityUser Vendor { get; set; }
 
     }
 }

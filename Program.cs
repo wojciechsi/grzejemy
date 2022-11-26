@@ -1,5 +1,6 @@
 using grzejemy.Areas.Identity;
 using grzejemy.Data;
+using grzejemy.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
