@@ -262,7 +262,7 @@ namespace grzejemy.Data.Migrations
 
                     b.HasIndex("OfferId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comment", (string)null);
                 });
 
             modelBuilder.Entity("grzejemy.Models.FuelType", b =>
@@ -279,7 +279,7 @@ namespace grzejemy.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FuelTypes");
+                    b.ToTable("FuelTypes", (string)null);
                 });
 
             modelBuilder.Entity("grzejemy.Models.Offer", b =>
@@ -305,7 +305,7 @@ namespace grzejemy.Data.Migrations
 
                     b.HasIndex("SalesPointId");
 
-                    b.ToTable("Offers");
+                    b.ToTable("Offers", (string)null);
                 });
 
             modelBuilder.Entity("grzejemy.Models.SalesPoint", b =>
@@ -343,7 +343,7 @@ namespace grzejemy.Data.Migrations
 
                     b.HasIndex("VendorId");
 
-                    b.ToTable("SalesPoints");
+                    b.ToTable("SalesPoints", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
