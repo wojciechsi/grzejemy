@@ -1,0 +1,63 @@
+﻿@page "/FuelTypes"
+@using grzejemy.Models
+@inject Data.ApplicationDbContext dbContext
+
+<h3>Fuel Types manager</h3>
+
+<a href="FuelTypes/Create" class="btn btn-success btn-lg w-100 my-4">+ Create</a>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Type</th>
+            <th scope="col">CRUD</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (fuelTypes != null)
+        {
+            foreach (var fuelType in fuelTypes)
+            {
+                <tr>
+                    <th scope="row">@fuelType.Id</th>
+                    <td>@fuelType.Name</td>
+                    <td>
+                        <a href="FuelTypes/Update/@fuelType.Id" class="btn btn-warning btn-lg w-100 my-2">
+                            Update
+                        </a>
+                        <button @onclick="() => DeleteFuelTypeAsync(fuelType)" class="btn btn-danger btn-lg w-100 my-2">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@inject IJSRuntime JsRuntime
+@code {
+    private List<FuelType> fuelTypes = new List<FuelType>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        fuelTypes = await dbContext.FuelTypes.ToListAsync();
+    }
+
+    private async Task DeleteFuelTypeAsync(FuelType fuelType)
+    {
+        dbContext.FuelTypes.Remove(fuelType);
+
+        if (await dbContext.SaveChangesAsync() > 0)
+        {
+            fuelTypes.Remove(fuelType);
+        }
+        else
+        {
+            string errorMessage = $"ERROR: Failed to delete fuel type \"{fuelType.Name}\"";
+            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+        }
+    }
+}

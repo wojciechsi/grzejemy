@@ -17,5 +17,9 @@ namespace grzejemy.Data
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Comment> Comment { get; set; }
 
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder) => dbContextOptionsBuilder.UseSqlServer("DefaultConnection");
+        //protected override void OnModelCreating(ModelBuilder builder)
+
     }
 }

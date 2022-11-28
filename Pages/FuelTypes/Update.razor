@@ -1,0 +1,50 @@
+﻿@page "/FuelTypes/Update/{Id:int}"
+@inject Data.ApplicationDbContext dbContext
+<h1>Updating "@fuelTypeToUpdate.Name"</h1>
+
+<EditForm Model="fuelTypeToUpdate" OnValidSubmit="UpdatePostAsync">
+    <div class="form-group mb-3">
+        <label for="name">Name</label>
+        <InputText @bind-Value="fuelTypeToUpdate.Name" class="form-control" id="name" />
+    </div>
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <button class="btn btn-success" type="submit">
+        Update
+    </button>
+
+    <button @onclick="@(() => NavigationManager.NavigateTo("/FuelTypes"))" class="btn btn-secondary">
+        Cancel
+    </button>
+</EditForm>
+
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+@code {
+    [Parameter] public int id { get; set; }
+
+    private FuelType fuelTypeToUpdate = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        fuelTypeToUpdate = await dbContext.FuelTypes.FindAsync(id);
+    }
+
+    private async Task UpdatePostAsync()
+    {
+        dbContext.FuelTypes.Update(fuelTypeToUpdate);
+
+        if (await dbContext.SaveChangesAsync() > 0)
+        {
+            NavigationManager.NavigateTo("/FuelTypes");
+        }
+        else
+        {
+            string errorMessage = "ERROR: Failed to update post.";
+            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+        }
+    }
+}
+

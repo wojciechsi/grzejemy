@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.CodeAnalysis.Host.Mef;
 using Microsoft.EntityFrameworkCore;
 
 namespace grzejemy
@@ -27,7 +28,6 @@ namespace grzejemy
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
