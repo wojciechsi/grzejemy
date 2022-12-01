@@ -1,17 +1,17 @@
 ﻿@page "/FuelTypes"
 @using grzejemy.Models
 @inject Data.ApplicationDbContext dbContext
+@attribute [Authorize(Roles = "admin")]
 
 <h3>Fuel Types manager</h3>
 
-<a href="FuelTypes/Create" class="btn btn-success btn-lg w-100 my-4">+ Create</a>
+<a href="FuelTypes/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
 
 <table class="table table-responsive table-striped">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Type</th>
-            <th scope="col">CRUD</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -20,13 +20,12 @@
             foreach (var fuelType in fuelTypes)
             {
                 <tr>
-                    <th scope="row">@fuelType.Id</th>
                     <td>@fuelType.Name</td>
                     <td>
-                        <a href="FuelTypes/Update/@fuelType.Id" class="btn btn-warning btn-lg w-100 my-2">
+                        <a href="FuelTypes/Update/@fuelType.Id" class="btn btn-warning btn-lg w-20 my-2">
                             Update
                         </a>
-                        <button @onclick="() => DeleteFuelTypeAsync(fuelType)" class="btn btn-danger btn-lg w-100 my-2">
+                        <button @onclick="() => DeleteFuelTypeAsync(fuelType)" class="btn btn-danger btn-lg w-20 my-2">
                             Delete
                         </button>
                     </td>

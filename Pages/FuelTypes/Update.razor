@@ -1,5 +1,7 @@
 ﻿@page "/FuelTypes/Update/{Id:int}"
 @inject Data.ApplicationDbContext dbContext
+@attribute [Authorize(Roles = "admin")]
+
 <h1>Updating "@fuelTypeToUpdate.Name"</h1>
 
 <EditForm Model="fuelTypeToUpdate" OnValidSubmit="UpdatePostAsync">

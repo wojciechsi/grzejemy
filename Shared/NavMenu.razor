@@ -41,14 +41,13 @@
         <AuthorizeView>
         <Authorized>
             <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
+                    <NavLink class="nav-link" href="Identity/Account/Manage" Match="NavLinkMatch.All">
+                        <span class="oi oi-spreadsheet" aria-hidden="true"></span> Manage your account
                     </NavLink>
                     </div>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                   
-                   <span class="oi oi-account-logout" aria-hidden="true"></span><a href="Identity/Account/Logout">Log out</a>
+                    <NavLink class="nav-link" href="Identity/Account/Logout" Match="NavLinkMatch.All">
+                   <span class="oi oi-account-logout" aria-hidden="true"></span>Log out
                 </NavLink>
                 </div>
             </Authorized>
