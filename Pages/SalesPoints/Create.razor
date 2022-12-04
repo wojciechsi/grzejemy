@@ -1,15 +1,32 @@
 ﻿@page "/SalesPoints/Create"
 @inject Data.ApplicationDbContext dbContext
+@inject AuthenticationStateProvider _authenticationStateProvider
 @attribute [Authorize(Roles = "vendor")]
 
-<h3>Create fuel type</h3>
+<h3>Create sales point</h3>
 
-<EditForm Model="fuelTypeToAdd" OnValidSubmit="CreatePostAsync">
+<EditForm Model="salesPointToAdd" OnValidSubmit="CreateSalesPointAsync">
     <div class="form-group mb-3">
         <label for="name">Name</label>
-        <InputText @bind-Value="fuelTypeToAdd.Name" class="form-control" id="name" />
+        <InputText @bind-Value="salesPointToAdd.Name" class="form-control" id="name" />
     </div>
-
+    <div class="form-group mb-3">
+        <label for="street">Street</label>
+        <InputText @bind-Value="salesPointToAdd.Street" class="form-control" id="street" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="number">Number</label>
+        <InputText @bind-Value="salesPointToAdd.Number" class="form-control" id="number" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="postCode">Post Code</label>
+        <InputText @bind-Value="salesPointToAdd.PostCode" class="form-control" id="postCode" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="city">City</label>
+        <InputText @bind-Value="salesPointToAdd.City" class="form-control" id="city" />
+    </div>
+    
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -17,7 +34,7 @@
         Create
     </button>
 
-    <button @onclick="@(() => NavigationManager.NavigateTo("/FuelTypes"))" class="btn btn-secondary">
+    <button @onclick="@(() => NavigationManager.NavigateTo("/SalesPoints"))" class="btn btn-secondary">
         Cancel
     </button>
 </EditForm>
@@ -25,19 +42,33 @@
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
 @code {
-    private FuelType fuelTypeToAdd = new FuelType();
+    private SalesPoint salesPointToAdd = new SalesPoint();
+    private string currUserId = string.Empty;
 
-    private async Task CreatePostAsync()
+    async Task<string> getUserId()
     {
-        await dbContext.FuelTypes.AddAsync(fuelTypeToAdd);
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        return UserId;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        currUserId = await getUserId();
+    }
+
+    private async Task CreateSalesPointAsync()
+    {
+        salesPointToAdd.VendorId = currUserId;
+        await dbContext.SalesPoints.AddAsync(salesPointToAdd);
 
         if (await dbContext.SaveChangesAsync() > 0)
         {
-            NavigationManager.NavigateTo("/FuelTypes");
+            NavigationManager.NavigateTo("/SalesPoints");
         }
         else
         {
-            string errorMessage = "ERROR: Failed to create fuel type.";
+            string errorMessage = "ERROR: Failed to create sales point.";
             await JsRuntime.InvokeVoidAsync("alert", errorMessage);
         }
     }

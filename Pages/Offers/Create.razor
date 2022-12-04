@@ -1,9 +1,8 @@
-﻿@page "/FuelTypes/Create"
+﻿@page "/Offers/Create"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
-@attribute [Authorize(Roles = "admin")]
 
-<h3>Create fuel type</h3>
+<h3>Create offer</h3>
 
 <EditForm Model="fuelTypeToAdd" OnValidSubmit="CreatePostAsync">
     <div class="form-group mb-3">
@@ -27,6 +26,13 @@
 @inject NavigationManager NavigationManager
 @code {
     private FuelType fuelTypeToAdd = new FuelType();
+
+    async Task<string> getUserId()
+    {
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        return UserId;
+    }
 
     private async Task CreatePostAsync()
     {

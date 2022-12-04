@@ -1,0 +1,77 @@
+﻿@page "/Offers/"
+@inject Data.ApplicationDbContext dbContext
+@inject AuthenticationStateProvider _authenticationStateProvider
+
+<h3>Sales points manager</h3>
+
+<a href="SalesPoints/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
+
+<h4>currUserName: @currUserId</h4>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th scope="col">fuel type</th>
+            <th scope="col">price</th>
+            <th scope="col">sales post code</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (offers != null)
+        {
+            foreach (var offer in offers)
+            {
+                {
+                    <tr>
+                        <td>@dbContext.FuelTypes.Find(offer.FuelTypeId).Name</td>
+                        <td>@offer.Price</td>
+                        <td>@dbContext.SalesPoints.Find(offer.SalesPointId).PostCode</td>
+                        <td>
+                            <a href="SalesPoints/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
+                                Update
+                            </a>
+                            <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+
+@inject IJSRuntime JsRuntime
+@code {
+    private List<Offer> offers = new List<Offer>();
+    private string currUserId = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        offers = await dbContext.Offers.ToListAsync();
+        currUserId = await getUserId();
+    }
+
+    async Task<string> getUserId()
+    {
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        return UserId;
+    }
+
+    private async Task DeleteOfferAsync(Offer offer)
+    {
+        dbContext.Offers.Remove(offer);
+        if (await dbContext.SaveChangesAsync() > 0)
+        {
+            offers.Remove(offer);
+        }
+        else
+        {
+            string errorMessage = $"ERROR: Failed to delete offer";
+            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+        }
+    }
+}

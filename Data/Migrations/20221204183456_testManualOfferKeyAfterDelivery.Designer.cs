@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using grzejemy.Data;
 
@@ -11,9 +12,11 @@ using grzejemy.Data;
 namespace grzejemy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204183456_testManualOfferKeyAfterDelivery")]
+    partial class testManualOfferKeyAfterDelivery
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,10 +299,12 @@ namespace grzejemy.Data.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("SalesPointId")
+                    b.Property<int?>("SalesPointId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SalesPointId");
 
                     b.ToTable("Offers");
                 });
@@ -407,7 +412,19 @@ namespace grzejemy.Data.Migrations
 
             modelBuilder.Entity("grzejemy.Models.Offer", b =>
                 {
+                    b.HasOne("grzejemy.Models.SalesPoint", null)
+                        .WithMany("Offers")
+                        .HasForeignKey("SalesPointId");
+                });
+
+            modelBuilder.Entity("grzejemy.Models.Offer", b =>
+                {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("grzejemy.Models.SalesPoint", b =>
+                {
+                    b.Navigation("Offers");
                 });
 #pragma warning restore 612, 618
         }

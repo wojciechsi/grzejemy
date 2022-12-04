@@ -5,14 +5,12 @@ namespace grzejemy.Models
     {
         public SalesPoint()
         {
-            Offers = new List<Offer>();
-            Vendor = new IdentityUser();
+            VendorId = string.Empty;
             Name = string.Empty;
             Street = string.Empty;
             Number = string.Empty;
             PostCode = string.Empty;
             City = string.Empty;
-
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,7 +18,6 @@ namespace grzejemy.Models
         public string Number { get; set; }
         public string PostCode { get; set; }
         public string City { get; set; }
-        public List<Offer> Offers { get; set; }
-        public IdentityUser Vendor { get; set; }
+        public string VendorId { get; set; }
     }
 }
