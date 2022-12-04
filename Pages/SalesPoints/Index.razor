@@ -1,0 +1,87 @@
+﻿@page "/SalesPoints/"
+@inject Data.ApplicationDbContext dbContext
+@attribute [Authorize(Roles = "vendor")]
+
+<h3>Sales points manager</h3>
+
+<a href="SalesPoints/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
+
+<h4>currUserName: @currUserName</h4>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">street</th>
+            <th scope="col">number</th>
+            <th scope="col">post code</th>
+            <th scope="col">city</th>
+            <th scope="col">number of offers</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (salesPoints != null)
+        {
+            foreach (var salesPoint in salesPoints)
+            {
+                @if (true)
+                {
+                    <tr>
+                        <td>@salesPoint.Name</td>
+                        <td>@salesPoint.Street</td>
+                        <td>@salesPoint.Number</td>
+                        <td>@salesPoint.PostCode</td>
+                        <td>@salesPoint.City</td>
+                        <td>vendor: @salesPoint.Vendor.Id</td>
+                        <td>
+                            <a href="SalesPoints/Update/@salesPoint.Id" class="btn btn-warning btn-lg w-20 my-2">
+                                Update
+                            </a>
+                            <button @onclick="() => DeleteFuelTypeAsync(salesPoint)" class="btn btn-danger btn-lg w-20 my-2">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+
+@inject IJSRuntime JsRuntime
+@code {
+    private List<SalesPoint> salesPoints = new List<SalesPoint>();
+    private string currUserName = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        salesPoints = await dbContext.SalesPoints.ToListAsync();
+        currUserName = await getUserName();
+    }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    async Task<string> getUserName()
+    {
+        var user = (await authenticationStateTask).User;
+        return user.Identity.Name;
+    }
+
+    private async Task DeleteFuelTypeAsync(SalesPoint salesPoint)
+    {
+        dbContext.SalesPoints.Remove(salesPoint);
+
+        if (await dbContext.SaveChangesAsync() > 0)
+        {
+            salesPoints.Remove(salesPoint);
+        }
+        else
+        {
+            string errorMessage = $"ERROR: Failed to delete sales point \"{salesPoint.Name}\"";
+            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+        }
+    }
+}

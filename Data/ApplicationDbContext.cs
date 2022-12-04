@@ -19,7 +19,14 @@ namespace grzejemy.Data
 
 
         //protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder) => dbContextOptionsBuilder.UseSqlServer("DefaultConnection");
-        //protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //builder.Entity<SalesPoint>()
+            //    .HasOne(s => s.Vendor)
+            //    .GetType()
+                
+        }
+       
 
     }
 }
