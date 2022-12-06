@@ -24,7 +24,7 @@
         {
             foreach (var salesPoint in salesPoints)
             {
-                @if (@salesPoint.VendorId.Equals(currUserId))
+                @if (true)
                 {
                     <tr>
                         <td>@salesPoint.Name</td>
@@ -56,8 +56,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        salesPoints = await dbContext.SalesPoints.ToListAsync();
         currUserId = await getUserId();
+        salesPoints = await dbContext.SalesPoints
+            .Include(s => s.Vendor)
+            .Where(s => s.Vendor.Id.Equals(currUserId))
+            .ToListAsync();
     }
 
     async Task<string> getUserId()

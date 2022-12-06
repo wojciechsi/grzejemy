@@ -24,9 +24,9 @@
             {
                 {
                     <tr>
-                        <td>@dbContext.FuelTypes.Find(offer.FuelTypeId).Name</td>
+                        <td>@offer.FuelType.Name</td>
                         <td>@offer.Price</td>
-                        <td>@dbContext.SalesPoints.Find(offer.SalesPointId).PostCode</td>
+                        <td>@offer.SalesPoint.PostCode</td>
                         <td>
                             <a href="SalesPoints/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
                                 Update
@@ -50,7 +50,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        offers = await dbContext.Offers.ToListAsync();
+        offers = await dbContext.Offers
+            .Include (o => o.SalesPoint)
+            .Include (o => o.FuelType)
+            .ToListAsync();
         currUserId = await getUserId();
     }
 

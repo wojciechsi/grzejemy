@@ -5,7 +5,7 @@ namespace grzejemy.Models
     {
         public SalesPoint()
         {
-            VendorId = string.Empty;
+            Vendor = new IdentityUser();
             Name = string.Empty;
             Street = string.Empty;
             Number = string.Empty;
@@ -18,6 +18,6 @@ namespace grzejemy.Models
         public string Number { get; set; }
         public string PostCode { get; set; }
         public string City { get; set; }
-        public string VendorId { get; set; }
+        public IdentityUser Vendor { get; set; }
     }
 }

@@ -59,7 +59,9 @@
 
     private async Task CreateSalesPointAsync()
     {
-        salesPointToAdd.VendorId = currUserId;
+        var user = dbContext.Users.Find(await getUserId());
+        salesPointToAdd.Vendor = user;
+
         await dbContext.SalesPoints.AddAsync(salesPointToAdd);
 
         if (await dbContext.SaveChangesAsync() > 0)
