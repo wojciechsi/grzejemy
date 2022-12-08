@@ -1,13 +1,13 @@
-﻿@page "/SalesPoints/Update/{Id:int}"
+﻿@page "/Offers/Update/{Id:int}"
 @inject Data.ApplicationDbContext dbContext
 @attribute [Authorize(Roles = "vendor")]
 
-<h1>Updating "@fuelTypeToUpdate.Name"</h1>
+<h1>Updating offer</h1>
 
-<EditForm Model="fuelTypeToUpdate" OnValidSubmit="UpdatePostAsync">
+<EditForm Model="offerToUpdate" OnValidSubmit="UpdateOfferAsync">
     <div class="form-group mb-3">
-        <label for="name">Name</label>
-        <InputText @bind-Value="fuelTypeToUpdate.Name" class="form-control" id="name" />
+        <label for="price">price</label>
+        <InputText (float)@bind-Value="offerToUpdate.Price" class="form-control" id="price" />
     </div>
 
     <DataAnnotationsValidator />
@@ -17,7 +17,7 @@
         Update
     </button>
 
-    <button @onclick="@(() => NavigationManager.NavigateTo("/FuelTypes"))" class="btn btn-secondary">
+    <button @onclick="@(() => NavigationManager.NavigateTo("/Offers"))" class="btn btn-secondary">
         Cancel
     </button>
 </EditForm>
@@ -27,24 +27,24 @@
 @code {
     [Parameter] public int id { get; set; }
 
-    private FuelType fuelTypeToUpdate = null;
+    private Offer offerToUpdate = null;
 
     protected override async Task OnParametersSetAsync()
     {
-        fuelTypeToUpdate = await dbContext.FuelTypes.FindAsync(id);
+        offerToUpdate = await dbContext.Offers.FindAsync(id);
     }
 
-    private async Task UpdatePostAsync()
+    private async Task UpdateOfferAsync()
     {
-        dbContext.FuelTypes.Update(fuelTypeToUpdate);
+        dbContext.Offers.Update(offerToUpdate);
 
         if (await dbContext.SaveChangesAsync() > 0)
         {
-            NavigationManager.NavigateTo("/FuelTypes");
+            NavigationManager.NavigateTo("/Offers");
         }
         else
         {
-            string errorMessage = "ERROR: Failed to update post.";
+            string errorMessage = "ERROR: Failed to update offer.";
             await JsRuntime.InvokeVoidAsync("alert", errorMessage);
         }
     }

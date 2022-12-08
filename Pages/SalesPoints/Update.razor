@@ -1,13 +1,29 @@
-﻿@page "/Offers/Update/{Id:int}"
+﻿@page "/SalesPoints/Update/{Id:int}"
 @inject Data.ApplicationDbContext dbContext
 @attribute [Authorize(Roles = "vendor")]
 
-<h1>Updating "@fuelTypeToUpdate.Name"</h1>
+<h1>Updating "@salesPointToUpdate.Name"</h1>
 
-<EditForm Model="fuelTypeToUpdate" OnValidSubmit="UpdatePostAsync">
+<EditForm Model="salesPointToUpdate" OnValidSubmit="UpdatePostAsync">
     <div class="form-group mb-3">
-        <label for="name">Name</label>
-        <InputText @bind-Value="fuelTypeToUpdate.Name" class="form-control" id="name" />
+        <label for="name">name</label>
+        <InputText @bind-Value="salesPointToUpdate.Name" class="form-control" id="name" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="street">street</label>
+        <InputText @bind-Value="salesPointToUpdate.Street" class="form-control" id="street" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="number">number</label>
+        <InputText @bind-Value="salesPointToUpdate.Number" class="form-control" id="number" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="postcode">post code</label>
+        <InputText @bind-Value="salesPointToUpdate.PostCode" class="form-control" id="postcode" />
+    </div>
+    <div class="form-group mb-3">
+        <label for="city">City</label>
+        <InputText @bind-Value="salesPointToUpdate.City" class="form-control" id="city" />
     </div>
 
     <DataAnnotationsValidator />
@@ -17,7 +33,7 @@
         Update
     </button>
 
-    <button @onclick="@(() => NavigationManager.NavigateTo("/FuelTypes"))" class="btn btn-secondary">
+    <button @onclick="@(() => NavigationManager.NavigateTo("/SalesPoints"))" class="btn btn-secondary">
         Cancel
     </button>
 </EditForm>
@@ -27,24 +43,24 @@
 @code {
     [Parameter] public int id { get; set; }
 
-    private FuelType fuelTypeToUpdate = null;
+    private SalesPoint salesPointToUpdate = null;
 
     protected override async Task OnParametersSetAsync()
     {
-        fuelTypeToUpdate = await dbContext.FuelTypes.FindAsync(id);
+        salesPointToUpdate = await dbContext.SalesPoints.FindAsync(id);
     }
 
     private async Task UpdatePostAsync()
     {
-        dbContext.FuelTypes.Update(fuelTypeToUpdate);
+        dbContext.SalesPoints.Update(salesPointToUpdate);
 
         if (await dbContext.SaveChangesAsync() > 0)
         {
-            NavigationManager.NavigateTo("/FuelTypes");
+            NavigationManager.NavigateTo("/SalesPoints");
         }
         else
         {
-            string errorMessage = "ERROR: Failed to update post.";
+            string errorMessage = "ERROR: Failed to update sales point.";
             await JsRuntime.InvokeVoidAsync("alert", errorMessage);
         }
     }
