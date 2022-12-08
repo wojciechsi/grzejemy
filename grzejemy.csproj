@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
     <Compile Remove="Pages\SalesPoint\**" />
+    <Content Remove="Controllers\**" />
     <Content Remove="Pages\SalesPoint\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Pages\SalesPoint\**" />
+    <None Remove="Controllers\**" />
     <None Remove="Pages\SalesPoint\**" />
   </ItemGroup>
 
@@ -25,7 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Data\Repositories\" />
+    <Folder Include="Pages\Controllers\" />
+    <Folder Include="Pages\ViewModels\" />
   </ItemGroup>
 
 </Project>
