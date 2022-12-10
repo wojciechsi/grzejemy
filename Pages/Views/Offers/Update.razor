@@ -7,7 +7,7 @@
 <EditForm Model="offerToUpdate" OnValidSubmit="UpdateOfferAsync">
     <div class="form-group mb-3">
         <label for="price">price</label>
-        <InputText (float)@bind-Value="offerToUpdate.Price" class="form-control" id="price" />
+        <InputNumber @bind-Value="offerToUpdate.Price" class="form-control" id="price" />
     </div>
 
     <DataAnnotationsValidator />
@@ -49,4 +49,3 @@
         }
     }
 }
-
