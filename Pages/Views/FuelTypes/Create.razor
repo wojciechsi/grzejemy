@@ -25,21 +25,4 @@
 
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
-@code {
-    private FuelType fuelTypeToAdd = new FuelType();
 
-    private async Task CreatePostAsync()
-    {
-        await dbContext.FuelTypes.AddAsync(fuelTypeToAdd);
-
-        if (await dbContext.SaveChangesAsync() > 0)
-        {
-            NavigationManager.NavigateTo("/FuelTypes");
-        }
-        else
-        {
-            string errorMessage = "ERROR: Failed to create fuel type.";
-            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
-        }
-    }
-}

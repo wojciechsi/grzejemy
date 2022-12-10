@@ -11,12 +11,16 @@
   <ItemGroup>
     <Compile Remove="Controllers\**" />
     <Compile Remove="Pages\SalesPoint\**" />
+    <Compile Remove="Pages\ViewModels\**" />
     <Content Remove="Controllers\**" />
     <Content Remove="Pages\SalesPoint\**" />
+    <Content Remove="Pages\ViewModels\**" />
     <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="Pages\SalesPoint\**" />
+    <EmbeddedResource Remove="Pages\ViewModels\**" />
     <None Remove="Controllers\**" />
     <None Remove="Pages\SalesPoint\**" />
+    <None Remove="Pages\ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Repositories\" />
-    <Folder Include="Pages\Controllers\" />
-    <Folder Include="Pages\ViewModels\" />
   </ItemGroup>
 
 </Project>

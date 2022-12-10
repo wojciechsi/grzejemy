@@ -1,0 +1,14 @@
+﻿@page "/Offers/{offerId:int}/Comments"
+@inject Data.ApplicationDbContext dbContext
+@inject AuthenticationStateProvider _authenticationStateProvider
+
+<h3>Offer details</h3>
+
+@*<p>@offer.FuelType.Name</p>*@
+<p>@offer.Price</p>
+@*<p>@offer.SalesPoint.PostCode</p>*@
+
+
+
+@inject IJSRuntime JsRuntime
+

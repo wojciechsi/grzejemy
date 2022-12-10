@@ -24,12 +24,16 @@
                         <td>@offer.Price</td>
                         <td>@offer.SalesPoint.PostCode</td>
                         <td>
-                            <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
+                            <AuthorizeView Roles="vendor">
+                                <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
                                 Update
-                            </a>
-                            <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
+                                </a>
+                            </AuthorizeView>
+                            <AuthorizeView Roles="vendor, admin">
+                                <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
                                 Delete
-                            </button>
+                                </button>
+                            </AuthorizeView>
                         </td>
                     </tr>
                 }
@@ -40,37 +44,4 @@
 
 
 @inject IJSRuntime JsRuntime
-@code {
-    private List<Offer> offers = new List<Offer>();
-    private string currUserId = string.Empty;
 
-    protected override async Task OnInitializedAsync()
-    {
-        offers = await dbContext.Offers
-            .Include (o => o.SalesPoint)
-            .Include (o => o.FuelType)
-            .ToListAsync();
-        currUserId = await getUserId();
-    }
-
-    async Task<string> getUserId()
-    {
-        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
-        var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
-        return UserId;
-    }
-
-    private async Task DeleteOfferAsync(Offer offer)
-    {
-        dbContext.Offers.Remove(offer);
-        if (await dbContext.SaveChangesAsync() > 0)
-        {
-            offers.Remove(offer);
-        }
-        else
-        {
-            string errorMessage = $"ERROR: Failed to delete offer";
-            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
-        }
-    }
-}

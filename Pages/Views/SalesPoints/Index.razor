@@ -50,38 +50,4 @@
 
 
 @inject IJSRuntime JsRuntime
-@code {
-    private List<SalesPoint> salesPoints = new List<SalesPoint>();
-    private string currUserId = string.Empty;
 
-    protected override async Task OnInitializedAsync()
-    {
-        currUserId = await getUserId();
-        salesPoints = await dbContext.SalesPoints
-            .Include(s => s.Vendor)
-            .Where(s => s.Vendor.Id.Equals(currUserId))
-            .ToListAsync();
-    }
-
-    async Task<string> getUserId()
-    {
-        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
-        var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
-        return UserId;
-    }
-
-    private async Task DeleteSalesAsync(SalesPoint salesPoint)
-    {
-        dbContext.SalesPoints.Remove(salesPoint);
-
-        if (await dbContext.SaveChangesAsync() > 0)
-        {
-            salesPoints.Remove(salesPoint);
-        }
-        else
-        {
-            string errorMessage = $"ERROR: Failed to delete sales point \"{salesPoint.Name}\"";
-            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
-        }
-    }
-}

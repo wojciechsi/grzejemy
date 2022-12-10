@@ -40,29 +40,5 @@
 
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
-@code {
-    [Parameter] public int id { get; set; }
 
-    private SalesPoint salesPointToUpdate = null;
-
-    protected override async Task OnParametersSetAsync()
-    {
-        salesPointToUpdate = await dbContext.SalesPoints.FindAsync(id);
-    }
-
-    private async Task UpdatePostAsync()
-    {
-        dbContext.SalesPoints.Update(salesPointToUpdate);
-
-        if (await dbContext.SaveChangesAsync() > 0)
-        {
-            NavigationManager.NavigateTo("/SalesPoints");
-        }
-        else
-        {
-            string errorMessage = "ERROR: Failed to update sales point.";
-            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
-        }
-    }
-}
 

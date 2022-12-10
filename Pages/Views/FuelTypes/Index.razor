@@ -37,26 +37,4 @@
 
 
 @inject IJSRuntime JsRuntime
-@code {
-    private List<FuelType> fuelTypes = new List<FuelType>();
 
-    protected override async Task OnInitializedAsync()
-    {
-        fuelTypes = await dbContext.FuelTypes.ToListAsync();
-    }
-
-    private async Task DeleteFuelTypeAsync(FuelType fuelType)
-    {
-        dbContext.FuelTypes.Remove(fuelType);
-
-        if (await dbContext.SaveChangesAsync() > 0)
-        {
-            fuelTypes.Remove(fuelType);
-        }
-        else
-        {
-            string errorMessage = $"ERROR: Failed to delete fuel type \"{fuelType.Name}\"";
-            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
-        }
-    }
-}
