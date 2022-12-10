@@ -1,0 +1,52 @@
+﻿@page "/BecomeVendor"
+@inject Data.ApplicationDbContext dbContext
+@inject AuthenticationStateProvider _authenticationStateProvider
+
+@attribute [Authorize(Roles = "buyer")]
+
+
+<h4>Are you sure you want to become a vendor?</h4>
+<h5>You will loose ability to comment posts.</h5>
+
+<button @onclick="() => becomeVendor()" class="btn btn-danger btn-lg w-20 my-2">
+    Yes
+</button>
+
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+@code {
+    private string currUserId = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currUserId = await getUserId();
+    }
+
+    async Task<string> getUserId()
+    {
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        return UserId;
+    }
+    private async Task becomeVendor()
+    {
+        var user = dbContext.Users.Find(await getUserId());
+        var userId = await getUserId();
+        var oldUserRole = dbContext.UserRoles.Find(userId, "BYR");
+        var newUserRole = new IdentityUserRole<string>();
+        newUserRole.UserId = userId;
+        newUserRole.RoleId = "VDR";
+        dbContext.UserRoles.Remove(oldUserRole);
+        dbContext.UserRoles.AddAsync(newUserRole);
+
+        if (await dbContext.SaveChangesAsync() > 0)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            string errorMessage = "ERROR: Failed to update your account.";
+            await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+        }
+    }
+}
