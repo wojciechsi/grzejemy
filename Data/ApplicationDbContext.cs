@@ -15,6 +15,7 @@ namespace grzejemy.Data
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<SalesPoint> SalesPoints { get; set; }
         public DbSet<Offer> Offers { get; set; }
-        public DbSet<Comment> Comment { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
     }
 }

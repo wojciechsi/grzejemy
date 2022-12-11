@@ -17,16 +17,17 @@ using grzejemy.Data;
 using grzejemy.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Xml.Linq;
 
 namespace grzejemy.Pages.Views.Comments
 {
     public partial class Create
     {
-        private Offer offerToAdd = new Offer();
-        private List<FuelType> fuelTypes = new List<FuelType>();
-        private List<SalesPoint> salesPoints = new List<SalesPoint>();
-        private int fuelTypeId = 0;
-        private int salesPointId = 0;
+        private Comment commentToAdd = new Comment();
+        private Offer offer = new Offer();
+        private IdentityUser author = new IdentityUser();
+        [Parameter] public int id { get; set; }
+
         private string currUserId = string.Empty;
         async Task<string> getUserId()
         {
@@ -34,26 +35,29 @@ namespace grzejemy.Pages.Views.Comments
             var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
             return UserId;
         }
+        protected override async Task OnParametersSetAsync()
+        {
+            offer = await dbContext.Offers.FindAsync(id);
+        }
 
         protected override async Task OnInitializedAsync()
         {
             currUserId = await getUserId();
-            fuelTypes = await dbContext.FuelTypes.AsNoTracking().ToListAsync();
-            salesPoints = await dbContext.SalesPoints.Where(s => s.Vendor.Id.Equals(currUserId)).ToListAsync();
+            author = await dbContext.Users.FindAsync(currUserId);
         }
 
-        private async Task CreateOfferAsync()
+        private async Task CreateCommentAsync()
         {
-            offerToAdd.FuelType = dbContext.FuelTypes.Find(fuelTypeId);
-            offerToAdd.SalesPoint = dbContext.SalesPoints.Find(salesPointId);
-            await dbContext.Offers.AddAsync(offerToAdd);
+            commentToAdd.Offer = offer;
+            commentToAdd.Author = author;
+            await dbContext.Comments.AddAsync(commentToAdd);
             if (await dbContext.SaveChangesAsync() > 0)
             {
-                NavigationManager.NavigateTo("/Offers");
+                NavigationManager.NavigateTo("/Offers/" + @offer.Id + "/Comments");
             }
             else
             {
-                string errorMessage = "ERROR: Failed to create offer.";
+                string errorMessage = "ERROR: Failed to create comment.";
                 await JsRuntime.InvokeVoidAsync("alert", errorMessage);
             }
         }

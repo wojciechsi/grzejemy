@@ -23,20 +23,23 @@ namespace grzejemy.Pages.Views.Comments
     public partial class Index
     {
 
-        [Parameter] public int offerId { get; set; }
+        [Parameter] public int id { get; set; }
 
         private Offer offer = null;
+        private List<Comment> comments = new List<Comment>();
 
         private string currUserId = string.Empty;
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    currUserId = await getUserId();
-        //}
+        protected override async Task OnInitializedAsync()
+        {
+            currUserId = await getUserId();
+        }
 
         protected override async Task OnParametersSetAsync()
         {
-            offer = await dbContext.Offers.FindAsync(offerId);
-            String test = "dupa";
+            offer = await dbContext.Offers.FindAsync(id);
+            comments = await dbContext.Comments
+                .Where(c => c.Offer.Id == id)
+                .ToListAsync();
         }
 
         async Task<string> getUserId()

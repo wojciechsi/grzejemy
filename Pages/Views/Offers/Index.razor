@@ -23,7 +23,10 @@
                         <td>@offer.FuelType.Name</td>
                         <td>@offer.Price</td>
                         <td>@offer.SalesPoint.PostCode</td>
-                        <td>
+                        <td>             
+                            <a href="Offers/@offer.Id/Comments" class="btn btn-warning btn-lg w-20 my-2">
+                                Details and comments
+                            </a>
                             <AuthorizeView Roles="vendor">
                                 <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
                                 Update

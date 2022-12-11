@@ -1,13 +1,52 @@
-﻿@page "/Offers/{offerId:int}/Comments"
+﻿@page "/Offers/{Id:int}/Comments"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
 
 <h3>Offer details</h3>
 
-@*<p>@offer.FuelType.Name</p>*@
+<p>@offer.FuelType.Name</p>
 <p>@offer.Price</p>
-@*<p>@offer.SalesPoint.PostCode</p>*@
+<p>@offer.SalesPoint.Name</p>
+<p>@offer.SalesPoint.Street</p>
+<p>@offer.SalesPoint.Number</p>
+<p>@offer.SalesPoint.City</p>
+<p>@offer.SalesPoint.PostCode</p>
 
+<AuthorizeView Roles="buyer">
+    <a href="Offers/@offer.Id/Comments/Create" class="btn btn-success btn-lg w-20 my-4">Comment</a>
+</AuthorizeView>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Comment</th>
+            <th scope="col">Paid price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (comments != null)
+        {
+            foreach (var comment in comments)
+            {
+                <tr>
+                    <td>@comment.Content</td>
+                    <td>@comment.PaidPrice</td>
+                    <td>
+                        @*<a href="FuelTypes/Update/@comment.Id" class="btn btn-warning btn-lg w-20 my-2">
+                            Update
+                        </a>*@
+                        <AuthorizeView Roles="admin">
+                            @*<button @onclick="() => DeleteFuelTypeAsync(comment)" class="btn btn-danger btn-lg w-20 my-2">
+                                Delete
+                            </button>*@
+                        </AuthorizeView>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
 
 
 @inject IJSRuntime JsRuntime

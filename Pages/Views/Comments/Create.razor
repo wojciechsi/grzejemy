@@ -1,34 +1,17 @@
-﻿@page "/xxx/Create"
+﻿@page "/Offers/{Id:int}/Comments/Create"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
-@attribute [Authorize(Roles = "vendor")]
 
 <h3>Create offer</h3>
 
-<EditForm Model="offerToAdd" OnValidSubmit="CreateOfferAsync">
-    <div class="form-group row">
-        <label for="salesPoint">SalesPoint</label>
-        <InputSelect @bind-Value="salesPointId" class="form-control" id="salesPoint">
-            <option value="0">Select a salespoint</option>
-            @foreach (var sp in salesPoints)
-            {
-                <option value="@sp.Id">@sp.Name</option>
-            }
-        </InputSelect>
-    </div>
-    <div class="form-group row">
-        <label for="fuelType">FuelType</label>
-        <InputSelect @bind-Value="fuelTypeId" class="form-control" id="fuelType">
-            <option value="0">Select fuel type</option>
-            @foreach (var ft in fuelTypes)
-            {
-                <option value="@ft.Id">@ft.Name</option>
-            }
-        </InputSelect>
+<EditForm Model="commentToAdd" OnValidSubmit="CreateCommentAsync">
+    <div class="form-group mb-3">
+        <label for="paidPrice">Paid price</label>
+        <InputNumber @bind-Value="commentToAdd.PaidPrice" class="form-control" id="paidPrice" />
     </div>
     <div class="form-group mb-3">
-        <label for="price">Price</label>
-        <InputNumber @bind-Value="offerToAdd.Price" class="form-control" id="name" />
+        <label for="comment">Comment</label>
+        <InputText @bind-Value="commentToAdd.Content" class="form-control" id="comment" />
     </div>
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -37,7 +20,7 @@
         Create
     </button>
 
-    <button @onclick="@(() => NavigationManager.NavigateTo("/Offers"))" class="btn btn-secondary">
+    <button @onclick="@(() => NavigationManager.NavigateTo("/Offers/" + @offer.Id + "/Comments"))" class="btn btn-secondary">
         Cancel
     </button>
 </EditForm>

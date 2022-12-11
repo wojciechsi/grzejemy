@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using grzejemy.Data;
 
@@ -11,9 +12,11 @@ using grzejemy.Data;
 namespace grzejemy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221211090711_FixTypoInAppDbContext")]
+    partial class FixTypoInAppDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +241,7 @@ namespace grzejemy.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OfferId")
+                    b.Property<int?>("OfferId")
                         .HasColumnType("int");
 
                     b.Property<float>("PaidPrice")
@@ -403,15 +406,11 @@ namespace grzejemy.Data.Migrations
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("grzejemy.Models.Offer", "Offer")
-                        .WithMany()
-                        .HasForeignKey("OfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("grzejemy.Models.Offer", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("OfferId");
 
                     b.Navigation("Author");
-
-                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("grzejemy.Models.Offer", b =>
@@ -440,6 +439,11 @@ namespace grzejemy.Data.Migrations
                         .HasForeignKey("VendorId");
 
                     b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("grzejemy.Models.Offer", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
