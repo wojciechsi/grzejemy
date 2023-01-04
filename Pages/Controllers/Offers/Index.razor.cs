@@ -26,7 +26,11 @@ namespace grzejemy.Pages.Views.Offers
         private string currUserId = string.Empty;
         protected override async Task OnInitializedAsync()
         {
-            offers = await dbContext.Offers.Include(o => o.SalesPoint).Include(o => o.FuelType).ToListAsync();
+            offers = await dbContext.Offers
+                .Include(s => s.SalesPoint)
+                    .ThenInclude(v => v.Vendor)
+                .Include(f => f.FuelType)
+                .ToListAsync();
             currUserId = await getUserId();
         }
 
