@@ -35,5 +35,57 @@
         Console.WriteLine($"Value changed to {str}");
     }
 }
+@*<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Punkt sprzedaży</th>
+            <th scope="col">opał</th>
+            <th scope="col">cena</th>
+            <th scope="col">kod pocztowy</th>
+            <th scope="col">Miasto</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (offers != null)
+        {
+            foreach (var offer in offers)
+            {
+                {
+                    <tr>
+                        <td>@offer.SalesPoint.Name</td>
+                        <td>@offer.FuelType.Name</td>
+
+                        @if (Regex.IsMatch(@offer.FuelType.Name, @"drewno.*"))
+                        {
+                            <td>@offer.Price zł/m3</td>
+                        }
+                        else
+                        {
+                            <td>@offer.Price zł/tona</td>
+                        }
+                        <td>@offer.SalesPoint.PostCode</td>
+                        <td>@offer.SalesPoint.City</td>
+                        <td>
+                            <a href="Offers/@offer.Id/Comments" class="btn btn-warning btn-lg w-20 my-2">
+                                Details and comments
+                            </a>
+                            <AuthorizeView Roles="vendor">
+                                <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
+                                    Update
+                                </a>
+                            </AuthorizeView>
+                            <AuthorizeView Roles="vendor, admin">
+                                <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
+                                    Delete
+                                </button>
+                            </AuthorizeView>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>*@
 
 @inject IJSRuntime JsRuntime
