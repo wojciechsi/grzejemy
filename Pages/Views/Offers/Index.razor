@@ -2,96 +2,60 @@
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
 
-<h3>Oferty</h3>
-<head>
-    <link rel="stylesheet" href="./Index.razor.css">
-</head>
-@*<table class="table table-responsive table-striped">
+<h3>Offers manager</h3>
+
+<table class="table table-responsive table-striped">
     <thead>
         <tr>
-            <th scope="col">fuel type</th>
-            <th scope="col">price</th>
-            <th scope="col">sales post code</th>
+            <th scope="col">Punkt sprzedaży</th>
+            <th scope="col">opał</th>
+            <th scope="col">cena</th>
+            <th scope="col">kod pocztowy</th>
+            <th scope="col">Miasto</th>
             <th scope="col"></th>
         </tr>
     </thead>
-    <tbody>*@
+    <tbody>
         @if (offers != null)
         {
             foreach (var offer in offers)
             {
                 {
-                    <div class="pricing-container">
-                        <ul class="pricing-list bounce-invert">
-							<li>
-								<ul class="pricing-wrapper">
-									<li data-type="monthly" class="is-visible">
-										<header class="pricing-header">
-                                        <h2>@offer.SalesPoint.Name</h2>
-											<div class="price">
-												<span class="currency">PLN</span>
-												<span class="value">@offer.Price</span>
-												<span class="duration">tona</span>
-											</div>
-										</header>
-										<div class="pricing-body">
-											<ul class="pricing-features">
-                                                <li>@offer.FuelType.Name</li>
-                                                <li>@offer.SalesPoint.PostCode</li>
-												@*<li><em>25</em> Products Loaded</li>*@
-											</ul>
-										</div>
-										<footer class="pricing-footer">
-									<a class="select" href="Offers/@offer.Id/Comments">Details</a>
-                                    <AuthorizeView Roles="vendor">
-                                        @if (offer.SalesPoint.Vendor.Id == currUserId)
-                                        {
-                                            <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
-                                                Update
-                                            </a>
-
-                                            <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
-                                                Delete
-                                            </button>
-                                        }
-                                    </AuthorizeView>
-                                    <AuthorizeView Roles="admin">
-                                        <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
-                                            Delete
-                                        </button>
-                                    </AuthorizeView>
-										</footer>
-									</li>
-								</ul>
-							</li>
-						</ul>
-                    </div>
-                   @* <tr>
+                    <tr>
+                        <td>@offer.SalesPoint.Name</td>
                         <td>@offer.FuelType.Name</td>
-                        <td>@offer.Price</td>
+
+                        @if (Regex.IsMatch(@offer.FuelType.Name, @"drewno.*"))
+                        {
+                            <td>@offer.Price zł/m3</td>
+                        }
+                        else
+                        {
+                            <td>@offer.Price zł/tona</td>
+                        }
                         <td>@offer.SalesPoint.PostCode</td>
-                        <td>             
+                        <td>@offer.SalesPoint.City</td>
+                        <td>
                             <a href="Offers/@offer.Id/Comments" class="btn btn-warning btn-lg w-20 my-2">
                                 Details and comments
                             </a>
                             <AuthorizeView Roles="vendor">
                                 <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
-                                Update
+                                    Update
                                 </a>
                             </AuthorizeView>
                             <AuthorizeView Roles="vendor, admin">
                                 <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
-                                Delete
+                                    Delete
                                 </button>
                             </AuthorizeView>
                         </td>
-                    </tr>*@
+                    </tr>
                 }
             }
         }
-@*    </tbody>
-</table>*@
+    </tbody>
+</table>
 
 
 @inject IJSRuntime JsRuntime
-
