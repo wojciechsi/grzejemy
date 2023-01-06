@@ -1,61 +1,39 @@
-﻿@page "/Offers/"
+@page "/Offers/"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
+@using Radzen
+@using Radzen.Blazor
 
-<h3>Offers manager</h3>
+<h3>Przeglądanie Ofert</h3>
 
-<table class="table table-responsive table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Punkt sprzedaży</th>
-            <th scope="col">opał</th>
-            <th scope="col">cena</th>
-            <th scope="col">kod pocztowy</th>
-            <th scope="col">Miasto</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (offers != null)
-        {
-            foreach (var offer in offers)
-            {
-                {
-                    <tr>
-                        <td>@offer.SalesPoint.Name</td>
-                        <td>@offer.FuelType.Name</td>
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
+                FilterMode="FilterMode.Simple" PageSize="20" AllowPaging="true" AllowSorting="true" Data="@offersDataGrid" TItem="Offer" ColumnWidth="300px"
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                LogicalFilterOperator="LogicalFilterOperator.Or">
+    <Columns>
+        <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.Name" Title="Punkt Sprzedaży" />
+        <RadzenDataGridColumn TItem="Offer" Property="FuelType.Name" Title="Typ Opału" />
+        <RadzenDataGridColumn TItem="Offer" Property="Price" Title="Cena" />
+        <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.PostCode" Title="Kod pocztowy" />
+        <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.City" Title="Miasto" />
+    </Columns>
+</RadzenDataGrid>
 
-                        @if (Regex.IsMatch(@offer.FuelType.Name, @"drewno.*"))
-                        {
-                            <td>@offer.Price zł/m3</td>
-                        }
-                        else
-                        {
-                            <td>@offer.Price zł/tona</td>
-                        }
-                        <td>@offer.SalesPoint.PostCode</td>
-                        <td>@offer.SalesPoint.City</td>
-                        <td>
-                            <a href="Offers/@offer.Id/Comments" class="btn btn-warning btn-lg w-20 my-2">
-                                Details and comments
-                            </a>
-                            <AuthorizeView Roles="vendor">
-                                <a href="Offers/Update/@offer.Id" class="btn btn-warning btn-lg w-20 my-2">
-                                    Update
-                                </a>
-                            </AuthorizeView>
-                            <AuthorizeView Roles="vendor, admin">
-                                <button @onclick="() => DeleteOfferAsync(offer)" class="btn btn-danger btn-lg w-20 my-2">
-                                    Delete
-                                </button>
-                            </AuthorizeView>
-                        </td>
-                    </tr>
-                }
-            }
-        }
-    </tbody>
-</table>
+@code {
 
+    IEnumerable<Offer> offersDataGrid;
+
+    protected override void OnInitialized()
+    {
+        offersDataGrid = dbContext.Offers.ToList();
+    }
+
+    void OnChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        Console.WriteLine($"Value changed to {str}");
+    }
+}
 
 @inject IJSRuntime JsRuntime
