@@ -1,13 +1,16 @@
 @page "/Offers/"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
 @using Radzen
 @using Radzen.Blazor
+@using Microsoft.EntityFrameworkCore
 
 <h3>Przeglądanie Ofert</h3>
 
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
-                FilterMode="FilterMode.Simple" PageSize="20" AllowPaging="true" AllowSorting="true" Data="@offersDataGrid" TItem="Offer" ColumnWidth="300px"
+                FilterMode="FilterMode.Simple" PageSize="20" AllowPaging="true" AllowSorting="true" Data="@offersDataGrid" TItem="Offer" ColumnWidth="200px"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                 LogicalFilterOperator="LogicalFilterOperator.Or">
     <Columns>
@@ -16,6 +19,17 @@
         <RadzenDataGridColumn TItem="Offer" Property="Price" Title="Cena" />
         <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.PostCode" Title="Kod pocztowy" />
         <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.City" Title="Miasto" />
+        <RadzenDataGridColumn TItem="Offer" Context="Offer" Title="Szczegóły">
+            <Template Context="Offer">
+                <RadzenButton Icon="list" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click=@GoToComments @onclick:stopPropagation="true" />
+            <AuthorizeView Roles="vendor">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="edit" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@GoToEdit  @onclick:stopPropagation="true" />
+            </AuthorizeView>
+            <AuthorizeView Roles="vendor, admin">
+                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@GoToDelete  @onclick:stopPropagation="true" />
+            </AuthorizeView  >
+            </Template>
+        </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGrid>
 
@@ -28,11 +42,19 @@
         offersDataGrid = dbContext.Offers.ToList();
     }
 
-    void OnChange(object value)
+    void GoToComments()
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+       // NavManager.NavigateTo("/Offers/"+offer.Id+"/Comments/ ");
+    }
 
-        Console.WriteLine($"Value changed to {str}");
+    void GoToDelete()
+    {
+       // NavManager.NavigateTo("/Offers/Update/"+@offer.Id);
+    }
+
+    void GoToEdit()
+    {
+       // NavManager.NavigateTo("/");
     }
 }
 @*<table class="table table-responsive table-striped">
@@ -88,4 +110,4 @@
     </tbody>
 </table>*@
 
-@inject IJSRuntime JsRuntime
+
