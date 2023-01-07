@@ -73,4 +73,5 @@ namespace grzejemy.Pages.Views.Offers
             NavManager.NavigateTo("/Offers/Update/"+offerId);
         }
     }
+    
 }
