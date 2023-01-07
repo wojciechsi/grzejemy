@@ -21,12 +21,16 @@
         <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.City" Title="Miasto" />
         <RadzenDataGridColumn TItem="Offer" Context="Offer" Title="Szczegóły">
             <Template Context="Offer">
-                <RadzenButton Icon="list" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click=@GoToComments @onclick:stopPropagation="true" />
+                <RadzenButton Icon="list" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click=@(args => GoToComments(Offer.Id)) @onclick:stopPropagation="true" />
             <AuthorizeView Roles="vendor">
-                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="edit" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@GoToEdit  @onclick:stopPropagation="true" />
+                    @if (Offer.SalesPoint.Vendor.Id == currUserId)
+                    {
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="edit" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => GoToEdit(Offer.Id)) @onclick:stopPropagation="true" />
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => DeleteOfferAsync(Offer))  @onclick:stopPropagation="true" />
+                    }
             </AuthorizeView>
-            <AuthorizeView Roles="vendor, admin">
-                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@GoToDelete  @onclick:stopPropagation="true" />
+            <AuthorizeView Roles="admin">
+                 <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => DeleteOfferAsync(Offer))  @onclick:stopPropagation="true" />
             </AuthorizeView  >
             </Template>
         </RadzenDataGridColumn>
@@ -35,27 +39,7 @@
 
 @code {
 
-    IEnumerable<Offer> offersDataGrid;
-
-    protected override void OnInitialized()
-    {
-        offersDataGrid = dbContext.Offers.ToList();
-    }
-
-    void GoToComments()
-    {
-       // NavManager.NavigateTo("/Offers/"+offer.Id+"/Comments/ ");
-    }
-
-    void GoToDelete()
-    {
-       // NavManager.NavigateTo("/Offers/Update/"+@offer.Id);
-    }
-
-    void GoToEdit()
-    {
-       // NavManager.NavigateTo("/");
-    }
+    
 }
 @*<table class="table table-responsive table-striped">
     <thead>

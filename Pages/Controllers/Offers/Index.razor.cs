@@ -53,6 +53,24 @@ namespace grzejemy.Pages.Views.Offers
                 string errorMessage = $"ERROR: Failed to delete offer";
                 await JsRuntime.InvokeVoidAsync("alert", errorMessage);
             }
+            NavManager.NavigateTo("/Offers");
+        }
+
+        IEnumerable<Offer> offersDataGrid;
+
+        protected override void OnInitialized()
+        {
+            offersDataGrid = dbContext.Offers.ToList();
+        }
+
+        void GoToComments(int offerId)
+        {
+            NavManager.NavigateTo("/Offers/" + offerId + "/Comments/ ");
+        }
+
+        void GoToEdit(int offerId)
+        {
+            NavManager.NavigateTo("/Offers/Update/"+offerId);
         }
     }
 }
