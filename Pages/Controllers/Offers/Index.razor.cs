@@ -47,6 +47,7 @@ namespace grzejemy.Pages.Views.Offers
             if (await dbContext.SaveChangesAsync() > 0)
             {
                 offers.Remove(offer);
+                await JsRuntime.InvokeVoidAsync("window.location.reload");
             }
             else
             {

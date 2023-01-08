@@ -28,6 +28,7 @@ namespace grzejemy.Pages.Views.SalesPoints
         {
             currUserId = await getUserId();
             salesPoints = await dbContext.SalesPoints.Include(s => s.Vendor).Where(s => s.Vendor.Id.Equals(currUserId)).ToListAsync();
+            salesPointsDataGrid = salesPoints;
         }
 
         async Task<string> getUserId()
@@ -43,6 +44,7 @@ namespace grzejemy.Pages.Views.SalesPoints
             if (await dbContext.SaveChangesAsync() > 0)
             {
                 salesPoints.Remove(salesPoint);
+                await JsRuntime.InvokeVoidAsync("window.location.reload");
             }
             else
             {
@@ -53,10 +55,6 @@ namespace grzejemy.Pages.Views.SalesPoints
 
         IEnumerable<SalesPoint> salesPointsDataGrid;
 
-        protected override void OnInitialized()
-        {
-            salesPointsDataGrid = dbContext.SalesPoints.ToList();
-        }
 
         void UpdateSalesPoint(int salesPoinId)
         {

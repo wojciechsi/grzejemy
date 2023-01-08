@@ -32,7 +32,7 @@
                         @if (SalesPoint.Vendor.Id == currUserId)
                         {
                             <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="edit" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => UpdateSalesPoint(SalesPoint.Id)) @onclick:stopPropagation="true" />
-                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => DeleteSalesAsync(SalesPoint)) @onclick:stopPropagation="true" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => DeleteSalesAsync(SalesPoint)) @onclick:stopPropagation="false" />
                         }
                      </Template>
                 </RadzenDataGridColumn>

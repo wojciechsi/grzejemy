@@ -34,6 +34,7 @@ namespace grzejemy.Pages.Views.FuelTypes
             if (await dbContext.SaveChangesAsync() > 0)
             {
                 fuelTypes.Remove(fuelType);
+                await JsRuntime.InvokeVoidAsync("window.location.reload");
             }
             else
             {
