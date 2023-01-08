@@ -15,7 +15,7 @@ namespace grzejemy.Models
         public float PaidPrice { get; set; }
         public string? Content { get; set; }
         public bool Verified { get; set; }
-        public int? ParagonId { get; set; }
+        public byte[]? ParagonPhoto { get; set; }
         public int? QualityGrade { get; set; }
         public string? QualityComment { get; set; }
     }

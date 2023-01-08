@@ -13,6 +13,7 @@
         <label for="comment">Comment</label>
         <InputText @bind-Value="commentToAdd.Content" class="form-control" id="comment" />
     </div>
+    <RadzenFileInput @bind-Value=@imageString TValue="string" Class="w-100" />
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -24,6 +25,7 @@
         Cancel
     </button>
 </EditForm>
+
 
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
