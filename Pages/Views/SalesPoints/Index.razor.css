@@ -1,4 +1,4 @@
-.datagrid {
+﻿.datagrid {
     --rz-grid-header-background-color: #e37b64;
     font-size: 20px;
     --rz-grid-background-color: #f7b77c;
@@ -6,6 +6,7 @@
     --rz-grid-header-font-size: 20px;
     --rz-text-color: #e37b64;
 }
+
 h3 {
     font-family: 'Comic Sans MS';
     font-size: 25px;
@@ -14,11 +15,13 @@ h3 {
     top: 35%;
     left: 15%;
 }
+
 img {
     width: 3%;
     height: 25%;
     left: 80%;
 }
+
 h1 {
     font-family: 'Comic Sans MS';
     display: flex;

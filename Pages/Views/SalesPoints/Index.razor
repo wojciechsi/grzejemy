@@ -1,11 +1,47 @@
 ﻿@page "/SalesPoints/"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
 @attribute [Authorize(Roles = "vendor")]
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.EntityFrameworkCore
 
-<h3>Sales points manager</h3>
+<head>
+    <link rel="stylesheet" href="./Index.razor.css">
+</head>
 
-<a href="SalesPoints/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
+    <h3>
+        <h1>Zarządzanie punktami sprzedaży</h1>
+        <img src="/logogrzejemy.png">
+    </h3>
+<body>
+    <RadzenButton Click=CreateSalesPoint Text="Utwórz Nowy Punkt Sprzedaży" ButtonStyle="ButtonStyle.Warning" />
+
+    <div class="datagrid">
+        <RadzenDataGrid AllowColumnResize="true" PageSize="20" AllowPaging="true" Data="@salesPointsDataGrid" TItem="SalesPoint" ColumnWidth="200px">
+            <Columns>
+                <RadzenDataGridColumn TItem="SalesPoint" Property="Name" Title="Nazwa" />
+                <RadzenDataGridColumn TItem="SalesPoint" Property="Street" Title="Ulica" />
+                <RadzenDataGridColumn TItem="SalesPoint" Property="Number" Title="Numer" />
+                <RadzenDataGridColumn TItem="SalesPoint" Property="PostCode" Title="Kod pocztowy" />
+                <RadzenDataGridColumn TItem="SalesPoint" Property="City" Title="Miasto" />
+                <RadzenDataGridColumn TItem="SalesPoint" Context="SalesPoint" Title="Akcje">
+                     <Template Context="SalesPoint">
+                        @if (SalesPoint.Vendor.Id == currUserId)
+                        {
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="edit" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => UpdateSalesPoint(SalesPoint.Id)) @onclick:stopPropagation="true" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => DeleteSalesAsync(SalesPoint)) @onclick:stopPropagation="true" />
+                        }
+                     </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </div>
+</body>
+
+@*<a href="SalesPoints/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
 
 <table class="table table-responsive table-striped">
     <thead>
@@ -46,8 +82,8 @@
             }
         }
     </tbody>
-</table>
+</table>*@
 
 
-@inject IJSRuntime JsRuntime
+
 

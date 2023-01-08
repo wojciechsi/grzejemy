@@ -50,5 +50,22 @@ namespace grzejemy.Pages.Views.SalesPoints
                 await JsRuntime.InvokeVoidAsync("alert", errorMessage);
             }
         }
+
+        IEnumerable<SalesPoint> salesPointsDataGrid;
+
+        protected override void OnInitialized()
+        {
+            salesPointsDataGrid = dbContext.SalesPoints.ToList();
+        }
+
+        void UpdateSalesPoint(int salesPoinId)
+        {
+            NavManager.NavigateTo("/SalesPoints/Update/" + salesPoinId);
+        }
+
+        void CreateSalesPoint()
+        {
+            NavManager.NavigateTo("/SalesPoints/Create/");
+        }
     }
 }
