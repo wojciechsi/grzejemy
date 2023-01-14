@@ -2,27 +2,27 @@
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
 
-<h3>Create offer</h3>
+<h3>Komentarz</h3>
 
 <EditForm Model="commentToAdd" OnValidSubmit="CreateCommentAsync">
     <div class="form-group mb-3">
-        <label for="paidPrice">Paid price</label>
+        <label for="paidPrice">Zapłacona kwota</label>
         <InputNumber @bind-Value="commentToAdd.PaidPrice" class="form-control" id="paidPrice" />
     </div>
     <div class="form-group mb-3">
-        <label for="comment">Comment</label>
+        <label for="comment">Komentarz</label>
         <InputText @bind-Value="commentToAdd.Content" class="form-control" id="comment" />
     </div>
     <RadzenFileInput @bind-Value=@imageString TValue="string" Class="w-100" />
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <button class="btn btn-success" type="submit">
-        Create
+    <button class="btn btn-warning" type="submit">
+        Dodaj
     </button>
 
     <button @onclick="@(() => NavigationManager.NavigateTo("/Offers/" + @offer.Id + "/Comments"))" class="btn btn-secondary">
-        Cancel
+        Anuluj
     </button>
 </EditForm>
 

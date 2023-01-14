@@ -3,14 +3,14 @@
 @inject Data.ApplicationDbContext dbContext
 @attribute [Authorize(Roles = "admin")]
 
-<h3>Fuel Types manager</h3>
+<h3>Zarządzaj typami opału</h3>
 
 <a href="FuelTypes/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
 
 <table class="table table-responsive table-striped">
     <thead>
         <tr>
-            <th scope="col">Type</th>
+            <th scope="col">Typ opału</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -23,10 +23,10 @@
                     <td>@fuelType.Name</td>
                     <td>
                         <a href="FuelTypes/Update/@fuelType.Id" class="btn btn-warning btn-lg w-20 my-2">
-                            Update
+                            Edytuj
                         </a>
                         <button @onclick="() => DeleteFuelTypeAsync(fuelType)" class="btn btn-danger btn-lg w-20 my-2">
-                            Delete
+                            Usuń
                         </button>
                     </td>
                 </tr>

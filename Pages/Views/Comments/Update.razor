@@ -2,23 +2,23 @@
 @inject Data.ApplicationDbContext dbContext
 @attribute [Authorize(Roles = "vendor")]
 
-<h1>Updating offer</h1>
+<h1>Edycja komentarza</h1>
 
 <EditForm Model="offerToUpdate" OnValidSubmit="UpdateOfferAsync">
     <div class="form-group mb-3">
-        <label for="price">price</label>
+        <label for="price">Cena</label>
         <InputNumber @bind-Value="offerToUpdate.Price" class="form-control" id="price" />
     </div>
 
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <button class="btn btn-success" type="submit">
-        Update
+    <button class="btn btn-warning" type="submit">
+        Zatwierdź
     </button>
 
     <button @onclick="@(() => NavigationManager.NavigateTo("/Offers"))" class="btn btn-secondary">
-        Cancel
+        Anuluj
     </button>
 </EditForm>
 

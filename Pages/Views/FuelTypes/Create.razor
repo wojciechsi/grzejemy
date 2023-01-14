@@ -3,23 +3,23 @@
 @inject AuthenticationStateProvider _authenticationStateProvider
 @attribute [Authorize(Roles = "admin")]
 
-<h3>Create fuel type</h3>
+<h3>Dodaj typ opału</h3>
 
 <EditForm Model="fuelTypeToAdd" OnValidSubmit="CreatePostAsync">
     <div class="form-group mb-3">
-        <label for="name">Name</label>
+        <label for="name">Nazwa</label>
         <InputText @bind-Value="fuelTypeToAdd.Name" class="form-control" id="name" />
     </div>
 
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <button class="btn btn-success" type="submit">
-        Create
+    <button class="btn btn-warning" type="submit">
+        Dodaj
     </button>
 
     <button @onclick="@(() => NavigationManager.NavigateTo("/FuelTypes"))" class="btn btn-secondary">
-        Cancel
+        Anuluj
     </button>
 </EditForm>
 

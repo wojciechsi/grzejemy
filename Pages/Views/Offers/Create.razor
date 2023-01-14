@@ -3,13 +3,13 @@
 @inject AuthenticationStateProvider _authenticationStateProvider
 @attribute [Authorize(Roles = "vendor")]
 
-<h3>Create offer</h3>
+<h3>Stwórz ofertę</h3>
 
 <EditForm Model="offerToAdd" OnValidSubmit="CreateOfferAsync">
     <div class="form-group row">
-        <label for="salesPoint">SalesPoint</label>
+        <label for="salesPoint">Punkt Sprzedaży</label>
         <InputSelect @bind-Value="salesPointId" class="form-control" id="salesPoint">
-            <option value="0">Select a salespoint</option>
+            <option value="0">Wybierz punkt sprzedaży</option>
             @foreach (var sp in salesPoints)
             {
                 <option value="@sp.Id">@sp.Name</option>
@@ -17,9 +17,9 @@
         </InputSelect>
     </div>
     <div class="form-group row">
-        <label for="fuelType">FuelType</label>
+        <label for="fuelType">Typ opału</label>
         <InputSelect @bind-Value="fuelTypeId" class="form-control" id="fuelType">
-            <option value="0">Select fuel type</option>
+            <option value="0">Wybierz typ opału</option>
             @foreach (var ft in fuelTypes)
             {
                 <option value="@ft.Id">@ft.Name</option>
@@ -27,7 +27,7 @@
         </InputSelect>
     </div>
     <div class="form-group mb-3">
-        <label for="price">Price</label>
+        <label for="price">Cena</label>
         <InputNumber @bind-Value="offerToAdd.Price" class="form-control" id="name" />
     </div>
     <DataAnnotationsValidator />

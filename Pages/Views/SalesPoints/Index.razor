@@ -41,49 +41,5 @@
     </div>
 </body>
 
-@*<a href="SalesPoints/Create" class="btn btn-success btn-lg w-20 my-4">+ Create</a>
-
-<table class="table table-responsive table-striped">
-    <thead>
-        <tr>
-            <th scope="col">name</th>
-            <th scope="col">street</th>
-            <th scope="col">number</th>
-            <th scope="col">post code</th>
-            <th scope="col">city</th>
-            <th scope="col">number of offers</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (salesPoints != null)
-        {
-            foreach (var salesPoint in salesPoints)
-            {
-                @if (true)
-                {
-                    <tr>
-                        <td>@salesPoint.Name</td>
-                        <td>@salesPoint.Street</td>
-                        <td>@salesPoint.Number</td>
-                        <td>@salesPoint.PostCode</td>
-                        <td>@salesPoint.City</td>
-                        <td>todo</td>
-                        <td>
-                            <a href="SalesPoints/Update/@salesPoint.Id" class="btn btn-warning btn-lg w-20 my-2">
-                                Update
-                            </a>
-                            <button @onclick="() => DeleteSalesAsync(salesPoint)" class="btn btn-danger btn-lg w-20 my-2">
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                }
-            }
-        }
-    </tbody>
-</table>*@
-
-
 
 

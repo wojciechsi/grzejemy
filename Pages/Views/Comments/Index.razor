@@ -33,20 +33,6 @@
 </RadzenCard>
 </div>
 
-@*<div class="Name">
-    <p>@offer.SalesPoint.Name</p>
-</div>
-<div class="details">
-    <div class="price">
-        <p>@offer.Price zł/@offer.FuelType.Unit</p>
-    </div>
-    <p>@offer.FuelType.Name</p>
-    <p>Adres:</p>
-    <p>@offer.SalesPoint.Street @offer.SalesPoint.Number</p>
-    <p>@offer.SalesPoint.PostCode @offer.SalesPoint.City</p>
-
-</div>*@
-
 <AuthorizeView Roles="buyer">
     <a href="Offers/@offer.Id/Comments/Create" class="btn btn-warning btn-lg w-20 my-4">Dodaj komentarz</a>
 </AuthorizeView>

@@ -2,39 +2,39 @@
 @inject Data.ApplicationDbContext dbContext
 @attribute [Authorize(Roles = "vendor")]
 
-<h1>Updating "@salesPointToUpdate.Name"</h1>
+<h1>Edycja "@salesPointToUpdate.Name"</h1>
 
 <EditForm Model="salesPointToUpdate" OnValidSubmit="UpdatePostAsync">
     <div class="form-group mb-3">
-        <label for="name">name</label>
+        <label for="name">Nazwa</label>
         <InputText @bind-Value="salesPointToUpdate.Name" class="form-control" id="name" />
     </div>
     <div class="form-group mb-3">
-        <label for="street">street</label>
+        <label for="street">Ulica</label>
         <InputText @bind-Value="salesPointToUpdate.Street" class="form-control" id="street" />
     </div>
     <div class="form-group mb-3">
-        <label for="number">number</label>
+        <label for="number">Numer</label>
         <InputText @bind-Value="salesPointToUpdate.Number" class="form-control" id="number" />
     </div>
     <div class="form-group mb-3">
-        <label for="postcode">post code</label>
+        <label for="postcode">Kod pocztowy</label>
         <InputText @bind-Value="salesPointToUpdate.PostCode" class="form-control" id="postcode" />
     </div>
     <div class="form-group mb-3">
-        <label for="city">City</label>
+        <label for="city">Miasto</label>
         <InputText @bind-Value="salesPointToUpdate.City" class="form-control" id="city" />
     </div>
 
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <button class="btn btn-success" type="submit">
-        Update
+    <button class="btn btn-warning" type="submit">
+        Zatwierdź
     </button>
 
     <button @onclick="@(() => NavigationManager.NavigateTo("/SalesPoints"))" class="btn btn-secondary">
-        Cancel
+        Anuluj
     </button>
 </EditForm>
 
