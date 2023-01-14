@@ -11,7 +11,7 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="Offers" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Browse offers
+                <span class="oi oi-home" aria-hidden="true"></span> Przeglądaj oferty
             </NavLink>
         </div>
         <!--<div class="nav-item px-3">
@@ -22,26 +22,26 @@
         <AuthorizeView Roles="vendor">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Offers/Create">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Post Offer
+                    <span class="oi oi-plus" aria-hidden="true"></span> Dodaj ofertę
                 </NavLink>
             </div>
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="SalesPoints">
-                    <span class="oi oi-spreadsheet" aria-hidden="true"></span> Manage Sales Points
+                    <span class="oi oi-spreadsheet" aria-hidden="true"></span> Punkty sprzedaży
                 </NavLink>
             </div>
         </AuthorizeView>
         <AuthorizeView Roles="buyer">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="BecomeVendor">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Become a vendor
+                    <span class="oi oi-plus" aria-hidden="true"></span> Zostań sprzedawcą
                 </NavLink>
             </div>
         </AuthorizeView>
         <AuthorizeView Roles="admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="FuelTypes">
-                    <span class="oi oi-spreadsheet" aria-hidden="true"></span> Manage fuel types
+                    <span class="oi oi-spreadsheet" aria-hidden="true"></span> Typy opału
                 </NavLink>
             </div>
         </AuthorizeView>
@@ -49,24 +49,24 @@
         <Authorized>
             <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Identity/Account/Manage" Match="NavLinkMatch.All">
-                        <span class="oi oi-person" aria-hidden="true"></span> Manage your account
+                        <span class="oi oi-person" aria-hidden="true"></span> Konto
                     </NavLink>
                     </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Identity/Account/Logout" Match="NavLinkMatch.All">
-                   <span class="oi oi-account-logout" aria-hidden="true"></span>Log out
+                   <span class="oi oi-account-logout" aria-hidden="true"></span>Wyloguj
                 </NavLink>
                 </div>
             </Authorized>
             <NotAuthorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Identity/Account/Login" Match="NavLinkMatch.All">
-                        <span class="oi oi-account-login" aria-hidden="true"></span>Log in
+                        <span class="oi oi-account-login" aria-hidden="true"></span>Zaloguj
                     </NavLink>
                 </div>
                     <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Identity/Account/Register" Match="NavLinkMatch.All">
-                        <span class="oi oi-clipboard" aria-hidden="true"></span>Register
+                        <span class="oi oi-clipboard" aria-hidden="true"></span>Rejestracja
                 </NavLink>
                 </div>
             </NotAuthorized>

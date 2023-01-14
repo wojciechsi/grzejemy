@@ -1,27 +1,63 @@
 ﻿@page "/Offers/{Id:int}/Comments"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.EntityFrameworkCore
 
-<h3>Offer details</h3>
+<head>
+    <link rel="stylesheet" href="./Index.razor.css">
+</head>
 
-<p>@offer.FuelType.Name</p>
-<p>@offer.Price</p>
-<p>@offer.SalesPoint.Name</p>
-<p>@offer.SalesPoint.Street</p>
-<p>@offer.SalesPoint.Number</p>
-<p>@offer.SalesPoint.City</p>
-<p>@offer.SalesPoint.PostCode</p>
+<h3>Szczegóły Oferty</h3>
+
+<div class="rz-background-color-warning">
+<RadzenCard class="m-3">
+    <h3 class="h5">@offer.SalesPoint.Name</h3>
+    <div class="d-flex flex-row">
+        <div>
+            <div class="details">
+                <div class="price">
+                    <p>@offer.Price zł/@offer.FuelType.Unit</p>
+                </div>
+                <p>@offer.FuelType.Name</p>
+                <div class="adress">
+                <p>Adres:</p>
+                </div>
+                <p>@offer.SalesPoint.Street @offer.SalesPoint.Number</p>
+                <p>@offer.SalesPoint.PostCode @offer.SalesPoint.City</p>
+
+            </div>
+        </div>
+    </div>
+</RadzenCard>
+</div>
+
+@*<div class="Name">
+    <p>@offer.SalesPoint.Name</p>
+</div>
+<div class="details">
+    <div class="price">
+        <p>@offer.Price zł/@offer.FuelType.Unit</p>
+    </div>
+    <p>@offer.FuelType.Name</p>
+    <p>Adres:</p>
+    <p>@offer.SalesPoint.Street @offer.SalesPoint.Number</p>
+    <p>@offer.SalesPoint.PostCode @offer.SalesPoint.City</p>
+
+</div>*@
 
 <AuthorizeView Roles="buyer">
-    <a href="Offers/@offer.Id/Comments/Create" class="btn btn-success btn-lg w-20 my-4">Comment</a>
+    <a href="Offers/@offer.Id/Comments/Create" class="btn btn-warning btn-lg w-20 my-4">Dodaj komentarz</a>
 </AuthorizeView>
 
+<div class="table">
 <table class="table table-responsive table-striped">
     <thead>
         <tr>
-            <th scope="col">Comment</th>
-            <th scope="col">Paid price</th>
-            <th scope="col">Receipt</th>
+            <th scope="col">Komentarz</th>
+            <th scope="col">Zapłacona kwota</th>
+            <th scope="col">Paragon</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -32,7 +68,7 @@
             {
                 <tr>
                     <td>@comment.Content</td>
-                    <td>@comment.PaidPrice</td>
+                    <td>@comment.PaidPrice zł</td>
                     <td>
                         @if (comment.ParagonPhoto != null)
                         {
@@ -54,6 +90,7 @@
         }
     </tbody>
 </table>
+    </div>
 
 
 @inject IJSRuntime JsRuntime

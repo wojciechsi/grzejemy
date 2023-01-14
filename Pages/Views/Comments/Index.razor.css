@@ -1,0 +1,41 @@
+﻿body {
+}
+
+
+.details
+{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:20px;
+    font-weight:lighter;
+}
+h3 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size:25px;
+}
+.Name {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    font-weight: normal;
+}
+.price {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:25px;
+    font-weight:bolder;
+}
+.table {
+    background-color: #ffbf85;
+    color: white;
+    border-radius:20px;
+}
+.adress {
+    font-size: 20px;
+    font-weight: bolder;
+}
+tr:hover {
+    background-color: coral;
+}
+
+.m-3 {
+    --rz-card-background-color: #f7b77c;
+}
