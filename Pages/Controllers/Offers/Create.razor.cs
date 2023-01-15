@@ -46,6 +46,7 @@ namespace grzejemy.Pages.Views.Offers
         {
             offerToAdd.FuelType = dbContext.FuelTypes.Find(fuelTypeId);
             offerToAdd.SalesPoint = dbContext.SalesPoints.Find(salesPointId);
+            offerToAdd.Date = DateTime.Now;
             await dbContext.Offers.AddAsync(offerToAdd);
             if (await dbContext.SaveChangesAsync() > 0)
             {

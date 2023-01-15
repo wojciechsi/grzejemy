@@ -12,5 +12,6 @@
         public float Price { get; set; }
         public SalesPoint SalesPoint { get; set; }
         public FuelType FuelType { get; set; }
+        public DateTime Date { get; set; }
     }
 }
