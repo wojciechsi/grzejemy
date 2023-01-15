@@ -1,6 +1,7 @@
 ﻿@page "/Offers/{Id:int}/Comments"
 @inject Data.ApplicationDbContext dbContext
 @inject AuthenticationStateProvider _authenticationStateProvider
+@inject NavigationManager NavManager
 @using Radzen
 @using Radzen.Blazor
 @using Microsoft.EntityFrameworkCore
@@ -44,6 +45,7 @@
             <th scope="col">Komentarz</th>
             <th scope="col">Zapłacona kwota</th>
             <th scope="col">Paragon</th>
+            <th scope="col">Potwierdzony</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -61,15 +63,29 @@
                             <RadzenImage Path="@($"data:image/jpeg;base64,{Convert.ToBase64String(comment.ParagonPhoto)}")" />
                         }
                     </td>
+                    @if (comment.Verified)
+                        {
+                            <td>tak</td>
+                        }
+                    else
+                        {
+                            <td>nie</td>
+                        }
                     <td>
-                        @*<a href="FuelTypes/Update/@comment.Id" class="btn btn-warning btn-lg w-20 my-2">
-                            Update
-                        </a>*@
-                        <AuthorizeView Roles="admin">
-                            @*<button @onclick="() => DeleteFuelTypeAsync(comment)" class="btn btn-danger btn-lg w-20 my-2">
-                                Delete
-                            </button>*@
-                        </AuthorizeView>
+                    @*<a href="FuelTypes/Update/@comment.Id" class="btn btn-warning btn-lg w-20 my-2">
+                        Update
+                    </a>*@
+                    <AuthorizeView Roles="admin">
+                            @if (!comment.Verified)
+                            {
+                                    <button @onclick="() => ConfirmCommentAsync(comment)" class="btn btn-success btn-lg w-20 my-2">
+                                        Zweryfikuj
+                                    </button>
+                            }
+                        <button @onclick="() => DeleteCommentAsync(comment)" class="btn btn-danger btn-lg w-20 my-2">
+                            Usuń
+                        </button>
+                    </AuthorizeView>
                     </td>
                 </tr>
             }

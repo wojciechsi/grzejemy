@@ -48,5 +48,43 @@ namespace grzejemy.Pages.Views.Comments
             var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
             return UserId;
         }
+        private async Task DeleteCommentAsync(Comment comment)
+        {
+            dbContext.Comments.Remove(comment);        
+            if (await dbContext.SaveChangesAsync() > 0)
+            {                                          
+                comments.Remove(comment);
+                reload();
+            }
+            else
+            {
+                string errorMessage = "ERROR: Failed to delete comment";
+                await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+            }
+        }
+
+        private async Task ConfirmCommentAsync(Comment comment)
+        {
+            if (!comment.Verified)
+            {
+                comment.Verified = true;
+                dbContext.Comments.Update(comment);
+                if (await dbContext.SaveChangesAsync() > 0)
+                {
+                    reload();
+                }
+                else
+                {
+                    string errorMessage = "ERROR: Failed to confirm comment";
+                    await JsRuntime.InvokeVoidAsync("alert", errorMessage);
+                }
+            }
+           
+        }
+
+        private void reload()
+        {
+            NavManager.NavigateTo("/Offers/" + offer.Id + "/Comments");
+        }
     }
 }
