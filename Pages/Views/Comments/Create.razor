@@ -21,7 +21,7 @@
         Dodaj
     </button>
 
-    <button @onclick="@(() => NavigationManager.NavigateTo("/Offers/" + @offer.Id + "/Comments"))" class="btn btn-secondary">
+    <button type="button" @onclick="@(() => NavigationManager.NavigateTo("/Offers/" + @offer.Id + "/Comments"))" class="btn btn-secondary">
         Anuluj
     </button>
 </EditForm>
