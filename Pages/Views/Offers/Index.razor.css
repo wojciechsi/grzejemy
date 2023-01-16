@@ -5,9 +5,12 @@
     --rz-grid-cell-font-size: 18px;
     --rz-grid-header-font-size: 20px;
     --rz-text-color: #e37b64;
+    position: absolute;
+    top: 13%;
 }
 h3 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif 
+    font-size: 25px;
     color: #4d2108;
     position: absolute;
     top: 35%;
@@ -15,13 +18,15 @@ h3 {
 }
 img {
     width: 3%;
-    height: 25%;
+    height: 10%;
     left: 80%;
+    position: absolute;
+    left:41%;
 }
 h1 {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
     display: flex;
     position: absolute;
-    top: 3%;
-    left: 43%;
+    top: 6%;
+    left: 45%;
 }

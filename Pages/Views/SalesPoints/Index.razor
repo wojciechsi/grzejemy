@@ -17,7 +17,9 @@
         <img src="/logogrzejemy.png">
     </h3>
 <body>
-    <RadzenButton Click=CreateSalesPoint Text="Utwórz Nowy Punkt Sprzedaży" ButtonStyle="ButtonStyle.Warning" />
+    <div class="btn">
+        <RadzenButton Click=CreateSalesPoint Text="Utwórz Nowy Punkt Sprzedaży" ButtonStyle="ButtonStyle.Warning" />
+    </div>
 
     <div class="datagrid">
         <RadzenDataGrid AllowColumnResize="true" PageSize="20" AllowPaging="true" Data="@salesPointsDataGrid" TItem="SalesPoint" ColumnWidth="200px">
