@@ -65,5 +65,7 @@ namespace grzejemy.Pages.Views.SalesPoints
         {
             NavManager.NavigateTo("/SalesPoints/Create/");
         }
+
+
     }
 }

@@ -5,11 +5,12 @@
 @attribute [Authorize(Roles = "buyer")]
 
 
-<h4>Are you sure you want to become a vendor?</h4>
-<h5>You will loose ability to comment posts.</h5>
+<h4>Czy na pewno chcesz zostać sprzedawcą?</h4>
+<h4>Stracisz możliwość komentowania.</h4>
+<h4>UWAGA: Twoja prośba będzie musiała zostać zatwierdzona przez administartora serwisu.</h4>
 
 <button @onclick="() => becomeVendor()" class="btn btn-danger btn-lg w-20 my-2">
-    Yes
+    Tak
 </button>
 
 @inject IJSRuntime JsRuntime
@@ -35,7 +36,7 @@
         var oldUserRole = dbContext.UserRoles.Find(userId, "BYR");
         var newUserRole = new IdentityUserRole<string>();
         newUserRole.UserId = userId;
-        newUserRole.RoleId = "VDR";
+        newUserRole.RoleId = "VDRCAN";
         dbContext.UserRoles.Remove(oldUserRole);
         dbContext.UserRoles.AddAsync(newUserRole);
 

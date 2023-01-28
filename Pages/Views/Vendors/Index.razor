@@ -1,0 +1,39 @@
+﻿@page "/Vendors/"
+@inject Data.ApplicationDbContext dbContext
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject UserManager<IdentityUser> _userManager
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.EntityFrameworkCore
+
+<head>
+    <link rel="stylesheet" href="./Index.razor.css">
+</head>
+
+    <h3>
+        <h1>Zarządzanie prośbami o zostanie sprzedawcą</h1>
+        <img src="/logogrzejemy.png">
+    </h3>
+<body>
+
+    <div class="datagrid">
+        <RadzenDataGrid AllowColumnResize="true" PageSize="20" AllowPaging="true" Data="@vendorsDataGrid" TItem="IdentityUser" ColumnWidth="200px">
+            <Columns>
+                <RadzenDataGridColumn TItem="IdentityUser" Property="UserName" Title="nazwa użytkownika" />
+                <RadzenDataGridColumn TItem="IdentityUser" Property="Email" Title="e-mail" />
+                <RadzenDataGridColumn TItem="IdentityUser" Property="PhoneNumber" Title="numer telefonu" />
+                <RadzenDataGridColumn TItem="IdentityUser" Context="IdentityUser" Title="Akcje">
+                     <Template Context="IdentityUser">
+                        <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="verified_user" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => confirmVendor(IdentityUser)) @onclick:stopPropagation="true" />
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="highlight_off" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" Class="my-1 ms-1" Click=@(args => rejectVendor(IdentityUser)) @onclick:stopPropagation="true" />
+                     </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </div>
+</body>
+
+
+

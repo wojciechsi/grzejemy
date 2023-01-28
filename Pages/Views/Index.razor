@@ -15,5 +15,9 @@
         <img src="/logogrzejemy.png">
     </div>
 
-    <a class="button-77" role="button" href="/offers">Rozgrzej się!</a>
+    <AuthorizeView Roles="vendor-candidate">
+        <div class="info">Twoja prośba o zostanie sprzedawcą jest w trakcie weryfikacji. Prosimy o cierpliwość.</div>
+    </AuthorizeView>
+
+    <a class="button-77" role="button" href="/offers">Wyszukaj idealną ofertę</a>
 </body>
