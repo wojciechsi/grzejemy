@@ -63,9 +63,9 @@
     List<DataItem> wegiel = new List<DataItem>();
     List<DataItem> drewno = new List<DataItem>();
     List<DataItem> opony = new List<DataItem>();
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        offersChart = dbContext.Offers.ToList();
+        offersChart = await dbContext.Offers.Include(f => f.FuelType).ToListAsync();
         foreach (Offer o in offersChart)
         {
             if (o.FuelType.Id==2 || o.FuelType.Id==31)
