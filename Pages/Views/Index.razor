@@ -1,4 +1,12 @@
 ﻿@page "/"
+@inject Data.ApplicationDbContext dbContext
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavManager
+@using Radzen
+@using Radzen.Blazor
+@using Microsoft.EntityFrameworkCore
+@using System.Globalization
 
 <PageTitle>grzejemy.pl</PageTitle>
 
@@ -20,4 +28,87 @@
     </AuthorizeView>
 
     <a class="button-77" role="button" href="/offers">Wyszukaj idealną ofertę</a>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 my-5">
+                <RadzenChart>
+                    <RadzenLineSeries Data="@wegiel" CategoryProperty="Date" Title="wegiel" LineType="LineType.Dashed" ValueProperty="Revenue">
+                        <RadzenMarkers MarkerType="MarkerType.Square" />
+                    </RadzenLineSeries>
+                    <RadzenLineSeries Data="@drewno" CategoryProperty="Date" Title="drewno" ValueProperty="Revenue">
+                        <RadzenMarkers MarkerType="MarkerType.Circle" />
+                    </RadzenLineSeries>
+                    <RadzenLineSeries Data="@opony" CategoryProperty="Date" Title="opony" ValueProperty="Revenue">
+                        <RadzenMarkers MarkerType="MarkerType.Circle" />
+                    </RadzenLineSeries>
+                    <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
+                    <RadzenValueAxis Formatter="@FormatAsUSD">
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Cena w złotówkach" />
+                    </RadzenValueAxis>
+                </RadzenChart>
+            </div>
+        </div>
+    </div>
 </body>
+
+@code{
+    List<Offer> offersChart;
+    class DataItem
+    {
+        public string Date { get; set; }
+        public double Revenue { get; set; }
+    }
+    List<DataItem> wegiel = new List<DataItem>();
+    List<DataItem> drewno = new List<DataItem>();
+    List<DataItem> opony = new List<DataItem>();
+    protected override void OnInitialized()
+    {
+        offersChart = dbContext.Offers.ToList();
+        foreach (Offer o in offersChart)
+        {
+            if (o.FuelType.Id==2 || o.FuelType.Id==31)
+            {
+                String date = o.Date.ToString();
+                wegiel.Add(new DataItem
+                    {
+                        Date = date,
+                        Revenue = o.Price
+                    });
+            }
+            else if (o.FuelType.Id == 21 || o.FuelType.Id == 30)
+            {
+                String date = o.Date.ToString();
+                drewno.Add(new DataItem
+                    {
+                        Date = date,
+                        Revenue = o.Price
+                    });
+            }
+            else
+            {
+                String date = o.Date.ToString();
+                opony.Add(new DataItem
+                    {
+                        Date = date,
+                        Revenue = o.Price
+                    });
+            }
+        }
+    }
+    string FormatAsUSD(object value)
+    {
+        return ((double)value).ToString("C0", CultureInfo.CreateSpecificCulture("pl"));
+    }
+
+    string FormatAsMonth(object value)
+    {
+        if (value != null)
+        {
+            return Convert.ToDateTime(value).ToString("MMM");
+        }
+
+        return string.Empty;
+    }
+ }

@@ -135,3 +135,9 @@ h1 {
     left: 36%;
     text-align: center
 }
+
+.container {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+}
