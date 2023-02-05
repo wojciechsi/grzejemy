@@ -32,15 +32,22 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 my-5">
-                <RadzenChart>
-                    <RadzenLineSeries Data="@wegiel" CategoryProperty="Date" Title="wegiel" LineType="LineType.Dashed" ValueProperty="Revenue">
+                <RadzenCard Class="w-100 mb-4" Style="display: flex; align-items: center; gap: 0.5rem">
+                    <RadzenSelectBar @bind-Value=@fuelTypeSelected TValue="FuelType" Change=@(args => OnFuelTypeChange(args, "SelectBar with single selection"))>
+                        <Items>
+                            @if (fuelTypes != null)
+                            {
+                                @foreach (var fuelType in fuelTypes)
+                                {
+                                    <RadzenSelectBarItem Text="@fuelType.Name" Value="@fuelType" />
+                                }
+                            }
+                        </Items>
+                    </RadzenSelectBar>
+                </RadzenCard>
+                <RadzenChart @ref="chart">
+                    <RadzenLineSeries Data="@data" CategoryProperty="Date" Title="wegiel" LineType="LineType.Dashed" ValueProperty="Average">
                         <RadzenMarkers MarkerType="MarkerType.Square" />
-                    </RadzenLineSeries>
-                    <RadzenLineSeries Data="@drewno" CategoryProperty="Date" Title="drewno" ValueProperty="Revenue">
-                        <RadzenMarkers MarkerType="MarkerType.Circle" />
-                    </RadzenLineSeries>
-                    <RadzenLineSeries Data="@opony" CategoryProperty="Date" Title="opony" ValueProperty="Revenue">
-                        <RadzenMarkers MarkerType="MarkerType.Circle" />
                     </RadzenLineSeries>
                     <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
                     <RadzenValueAxis Formatter="@FormatAsUSD">
@@ -48,55 +55,93 @@
                         <RadzenAxisTitle Text="Cena w złotówkach" />
                     </RadzenValueAxis>
                 </RadzenChart>
+
             </div>
         </div>
     </div>
 </body>
 
 @code{
-    List<Offer> offersChart;
+    List<Offer> offers;
+    List<FuelType> fuelTypes;
+
+    FuelType fuelTypeSelected = null;
+
     class DataItem
     {
         public string Date { get; set; }
-        public double Revenue { get; set; }
+        public double Average { get; set; }
     }
-    List<DataItem> wegiel = new List<DataItem>();
-    List<DataItem> drewno = new List<DataItem>();
-    List<DataItem> opony = new List<DataItem>();
+
+    List<DataItem> data = new List<DataItem>();
+    RadzenChart chart;
+
     protected override async Task OnInitializedAsync()
     {
-        offersChart = await dbContext.Offers.Include(f => f.FuelType).ToListAsync();
-        foreach (Offer o in offersChart)
+        fuelTypes = await dbContext.FuelTypes.ToListAsync();
+        fuelTypeSelected = fuelTypes.FirstOrDefault();
+        await loadDataToChart();
+    }
+
+    protected async Task loadDataToChart()
+    {
+        offers = await dbContext.Offers.Include(f => f.FuelType).Where(o => o.FuelType.Id.Equals(fuelTypeSelected.Id)).ToListAsync();
+
+        offers.Sort(delegate (Offer a, Offer b)
         {
-            if (o.FuelType.Id==2 || o.FuelType.Id==31)
+            if (a.Date > b.Date)
             {
-                String date = o.Date.ToString();
-                wegiel.Add(new DataItem
-                    {
-                        Date = date,
-                        Revenue = o.Price
-                    });
-            }
-            else if (o.FuelType.Id == 21 || o.FuelType.Id == 30)
-            {
-                String date = o.Date.ToString();
-                drewno.Add(new DataItem
-                    {
-                        Date = date,
-                        Revenue = o.Price
-                    });
+                return 1;
             }
             else
             {
-                String date = o.Date.ToString();
-                opony.Add(new DataItem
-                    {
-                        Date = date,
-                        Revenue = o.Price
-                    });
+                return 0;
+            }
+        });
+
+        data.Clear();
+        DateTime zeroTime = new DateTime(1970, 1, 1);
+        DateTime currentDate = new DateTime(1970, 1, 1);
+        List<double> currentPrices = new List<double>();
+        foreach (Offer o in offers)
+        {
+
+            if (currentDate == zeroTime)
+            {
+                currentDate = o.Date; //set current month at beggining
+            }
+
+            if (currentDate.Month == o.Date.Month && currentDate.Year == o.Date.Year)
+            {
+                currentPrices.Add((double)(o.Price)); //aggregate
+                Console.WriteLine((double)(o.Price));
+            }
+            else
+            {
+                if (currentPrices.Count() > 0)
+                {
+                    data.Add(new DataItem
+                        {
+                            Date = currentDate.ToString(),
+                            Average = currentPrices.Average()
+                        });
+                    Console.WriteLine(currentPrices.Average() + " " + currentPrices.Count);
+                    currentPrices.Clear(); //flip to next month
+                }
+                currentDate = o.Date;
             }
         }
+        //don't forget the last one
+        if (currentPrices.Count() > 0)
+        {
+            data.Add(new DataItem
+                {
+                    Date = currentDate.ToString(),
+                    Average = currentPrices.Average()
+                });
+        }
     }
+
     string FormatAsUSD(object value)
     {
         return ((double)value).ToString("C0", CultureInfo.CreateSpecificCulture("pl"));
@@ -106,9 +151,16 @@
     {
         if (value != null)
         {
-            return Convert.ToDateTime(value).ToString("MMM");
+            return Convert.ToDateTime(value).ToString("MMM yyyy");
         }
 
         return string.Empty;
     }
- }
+
+    async Task OnFuelTypeChange(FuelType value, string name)
+    {
+        fuelTypeSelected = value;
+        await loadDataToChart();
+        chart.Reload();
+    }
+}
