@@ -34,6 +34,8 @@ namespace grzejemy.Pages.Views.Comments
         private string currUserId = string.Empty;
 
         private string imageString = string.Empty;
+
+        private int rating = 0;
         async Task<string> getUserId()
         {
             var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
@@ -57,12 +59,17 @@ namespace grzejemy.Pages.Views.Comments
         {
             commentToAdd.Offer = offer;
             commentToAdd.Author = author;
+            commentToAdd.QualityGrade = rating;
+            string formattedImageString = string.Empty;
 
-            string formattedImageString = Regex.Replace(imageString, @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
+            if (imageString != string.Empty)
+            {
+                formattedImageString = Regex.Replace(imageString, @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
 
-            byte[] image = Convert.FromBase64String(formattedImageString);
+                byte[] image = Convert.FromBase64String(formattedImageString);
 
-            commentToAdd.ParagonPhoto = image;
+                commentToAdd.ParagonPhoto = image;
+            }
 
             await dbContext.Comments.AddAsync(commentToAdd);
             if (await dbContext.SaveChangesAsync() > 0)
@@ -74,11 +81,6 @@ namespace grzejemy.Pages.Views.Comments
                 string errorMessage = "ERROR: Failed to create comment.";
                 await JsRuntime.InvokeVoidAsync("alert", errorMessage);
             }
-        }
-
-        void OnChange(byte[] value)
-        {
-            
         }
 
     }

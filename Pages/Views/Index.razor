@@ -85,19 +85,11 @@
 
     protected async Task loadDataToChart()
     {
-        offers = await dbContext.Offers.Include(f => f.FuelType).Where(o => o.FuelType.Id.Equals(fuelTypeSelected.Id)).ToListAsync();
-
-        offers.Sort(delegate (Offer a, Offer b)
-        {
-            if (a.Date > b.Date)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        });
+        offers = await dbContext.Offers.Include(f => f.FuelType)
+            .Where(o => o.FuelType.Id
+            .Equals(fuelTypeSelected.Id))
+            .OrderBy(o => o.Date)
+            .ToListAsync();
 
         data.Clear();
         DateTime zeroTime = new DateTime(1970, 1, 1);
@@ -140,6 +132,9 @@
                     Average = currentPrices.Average()
                 });
         }
+
+        chart.Reload();
+
     }
 
     string FormatAsUSD(object value)

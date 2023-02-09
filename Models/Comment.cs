@@ -16,7 +16,7 @@ namespace grzejemy.Models
         public string? Content { get; set; }
         public bool Verified { get; set; }
         public byte[]? ParagonPhoto { get; set; }
-        public int? QualityGrade { get; set; }
+        public int QualityGrade { get; set; }
         public string? QualityComment { get; set; }
     }
 }

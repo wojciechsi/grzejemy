@@ -10,6 +10,10 @@
         <InputNumber @bind-Value="commentToAdd.PaidPrice" class="form-control" id="paidPrice" />
     </div>
     <div class="form-group mb-3">
+        <label for="paidPrice">Jakość opału</label>
+        <RadzenRating @bind-Value=@rating />
+    </div>
+    <div class="form-group mb-3">
         <label for="comment">Komentarz</label>
         <InputText @bind-Value="commentToAdd.Content" class="form-control" id="comment" />
     </div>

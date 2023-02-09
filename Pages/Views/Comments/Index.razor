@@ -44,6 +44,7 @@
         <tr>
             <th scope="col">Komentarz</th>
             <th scope="col">Zapłacona kwota</th>
+            <th scope="col">Ocena jakości opału</th>
             <th scope="col">Paragon</th>
             <th scope="col">Potwierdzony</th>
             <th scope="col"></th>
@@ -57,6 +58,9 @@
                 <tr>
                     <td>@comment.Content</td>
                     <td>@comment.PaidPrice zł</td>
+                    <td>
+                            <RadzenRating ReadOnly="true" Value=@comment.QualityGrade />
+                    </td>
                     <td>
                         @if (comment.ParagonPhoto != null)
                         {
