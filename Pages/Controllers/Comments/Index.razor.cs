@@ -37,6 +37,7 @@ namespace grzejemy.Pages.Views.Comments
         protected override async Task OnParametersSetAsync()
         {
             offer = await dbContext.Offers.FindAsync(id);
+          
             comments = await dbContext.Comments
                 .Where(c => c.Offer.Id == id)
                 .ToListAsync();
