@@ -62,13 +62,17 @@
 </body>
 
 @code{
-    List<Offer> offers;
     List<FuelType> fuelTypes;
-
     FuelType fuelTypeSelected = null;
 
     class DataItem
     {
+        public DataItem(DateTime date, double average)
+        {
+            Date = date.ToString();
+            Average = average;
+        }
+
         public string Date { get; set; }
         public double Average { get; set; }
     }
@@ -83,58 +87,46 @@
         await loadDataToChart();
     }
 
+    private struct AverageStamped
+    {
+        public AverageStamped(int year, int month, double average)
+        {
+            Year = year;
+            Month = month;
+            Average = average;
+        }
+
+        public int Year { get; }
+        public int Month { get; }
+        public double Average { get; }
+    }
+
     protected async Task loadDataToChart()
     {
-        offers = await dbContext.Offers.Include(f => f.FuelType)
-            .Where(o => o.FuelType.Id
-            .Equals(fuelTypeSelected.Id))
-            .OrderBy(o => o.Date)
-            .ToListAsync();
-
         data.Clear();
-        DateTime zeroTime = new DateTime(1970, 1, 1);
-        DateTime currentDate = new DateTime(1970, 1, 1);
-        List<double> currentPrices = new List<double>();
-        foreach (Offer o in offers)
-        {
 
-            if (currentDate == zeroTime)
-            {
-                currentDate = o.Date; //set current month at beggining
-            }
 
-            if (currentDate.Month == o.Date.Month && currentDate.Year == o.Date.Year)
+        var model = await dbContext.Offers
+            .Where(o => o.FuelType == fuelTypeSelected)
+            .GroupBy(o => new
             {
-                currentPrices.Add((double)(o.Price)); //aggregate
-                Console.WriteLine((double)(o.Price));
-            }
-            else
-            {
-                if (currentPrices.Count() > 0)
-                {
-                    data.Add(new DataItem
-                        {
-                            Date = currentDate.ToString(),
-                            Average = currentPrices.Average()
-                        });
-                    Console.WriteLine(currentPrices.Average() + " " + currentPrices.Count);
-                    currentPrices.Clear(); //flip to next month
-                }
-                currentDate = o.Date;
-            }
-        }
-        //don't forget the last one
-        if (currentPrices.Count() > 0)
+                Month = o.Date.Month,
+                Year = o.Date.Year
+            }).Select(g => new AverageStamped
+            (
+                g.Key.Year,
+                g.Key.Month,
+                g.Average(o => o.Price)
+            )).ToListAsync();
+
+
+        foreach (var line in model)
         {
-            data.Add(new DataItem
-                {
-                    Date = currentDate.ToString(),
-                    Average = currentPrices.Average()
-                });
+            var date = new DateTime(line.Year, line.Month, 1);
+            data.Add(new DataItem(date, line.Average));
         }
 
         chart.Reload();
-
     }
 
     string FormatAsUSD(object value)
