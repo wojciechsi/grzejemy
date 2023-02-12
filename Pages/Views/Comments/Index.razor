@@ -14,23 +14,26 @@
 
 <div class="rz-background-color-warning">
 <RadzenCard class="m-3">
-    <h3 class="h5">@offer.SalesPoint.Name</h3>
-    <div class="d-flex flex-row">
-        <div>
-            <div class="details">
-                <div class="price">
-                    <p>@offer.Price zł/@offer.FuelType.Unit</p>
-                </div>
-                <p>@offer.FuelType.Name</p>
-                <div class="adress">
-                <p>Adres:</p>
-                </div>
-                <p>@offer.SalesPoint.Street @offer.SalesPoint.Number</p>
-                <p>@offer.SalesPoint.PostCode @offer.SalesPoint.City</p>
+    @if (offer != null)
+    {
+        <h3 class="h5">@offer.SalesPoint.Name</h3>
+        <div class="d-flex flex-row">
+            <div>
+                <div class="details">
+                    <div class="price">
+                        <p>@offer.Price zł/@offer.FuelType.Unit</p>
+                    </div>
+                    <p>@offer.FuelType.Name</p>
+                    <div class="adress">
+                    <p>Adres:</p>
+                    </div>
+                    <p>@offer.SalesPoint.Street @offer.SalesPoint.Number</p>
+                    <p>@offer.SalesPoint.PostCode @offer.SalesPoint.City</p>
 
+                </div>
             </div>
         </div>
-    </div>
+    }
 </RadzenCard>
 </div>
 
