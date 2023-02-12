@@ -46,7 +46,7 @@
                     </RadzenSelectBar>
                 </RadzenCard>
                 <RadzenChart @ref="chart">
-                    <RadzenLineSeries Data="@data" CategoryProperty="Date" Title="wegiel" LineType="LineType.Dashed" ValueProperty="Average">
+                    <RadzenLineSeries Smooth=true Data="@data" CategoryProperty="Date" Title=" " LineType="LineType.Solid" ValueProperty="Average">
                         <RadzenMarkers MarkerType="MarkerType.Square" />
                     </RadzenLineSeries>
                     <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
@@ -121,7 +121,7 @@
 
 
         foreach (var line in model)
-        {
+        { 
             var date = new DateTime(line.Year, line.Month, 1);
             data.Add(new DataItem(date, line.Average));
         }
