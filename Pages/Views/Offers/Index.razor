@@ -23,7 +23,7 @@
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
                 FilterMode="FilterMode.Simple" PageSize="20" AllowPaging="true" AllowSorting="true" Data="@offersDataGrid" TItem="Offer" ColumnWidth="200px"
                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        LogicalFilterOperator="LogicalFilterOperator.Or" AllowMultiColumnSorting="true" >
+                        LogicalFilterOperator="LogicalFilterOperator.And" AllowMultiColumnSorting="true" >
     <Columns>
         <RadzenDataGridColumn TItem="Offer" Property="SalesPoint.Name" Title="Punkt Sprzedaży" />
         <RadzenDataGridColumn TItem="Offer" Property="FuelType.Name" Title="Typ Opału" />
